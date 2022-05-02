@@ -30,9 +30,17 @@ jobs:
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
         arguments: build
-#https://github.com/marketplace/actions/test-reporter
-    - name: Test Reporter
-      uses: dorny/test-reporter@v1.5.0
+#https://foresight.thundra.io/start/integrate-github-test-runs
+    - name: Foresight Test Report Uploader
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-result-junit
+        path: build/reports/tests/test
+
+##https://github.com/marketplace/actions/test-reporter
+#    - name: Test Reporter
+#      uses: dorny/test-reporter@v1.5.0
 #https://github.com/marketplace/actions/codecov
     - name: Codecov
       uses: codecov/codecov-action@v3.1.0
