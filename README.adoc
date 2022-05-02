@@ -1,4 +1,4 @@
-= 公共组件 image:https://github.com/peacetrue/peacetrue-common/actions/workflows/main.yml/badge.svg?branch=master[]
+= 公共组件 image:https://github.com/peacetrue/peacetrue-common/actions/workflows/main.yml/badge.svg?branch=master[] image:https://img.shields.io/codecov/c/github/peacetrue/peacetrue-common/master["Codecov branch", link="https://app.codecov.io/gh/peacetrue/peacetrue-common"]
 peace <xiayouxue@hotmail.com>
 v1.0, 2022-05-02: SNAPSHOT
 :doctype: docbook
@@ -12,9 +12,15 @@ v1.0, 2022-05-02: SNAPSHOT
 
 详情参考 https://peacetrue.cn/summarize/peacetrue-common/index.html[安宁的博客^]。
 
-image:https://img.shields.io/codecov/c/github/peacetrue/peacetrue-common/master[Codecov branch]
+
 // https://shields.io/
 // https://shields.io/category/build
 // https://shields.io/category/coverage
 // image:https://img.shields.io/github/workflow/status/peacetrue/peacetrue-common/build/master[GitHub Workflow Status (branch)]
 // https://codecov.io/{vcsName}/{user}/{repo}/settings/badge.
+// image:https://img.shields.io/github/downloads/peacetrue/peacetrue-common/total[GitHub all releases]
+// image:https://img.shields.io/github/license/peacetrue/peacetrue-common["GitHub license",link="https://github.com/peacetrue/peacetrue-common/blob/master/LICENSE"]
+
+//image:https://img.shields.io/github/directory-file-count/peacetrue/peacetrue-common[GitHub repo file count]
+//image:https://img.shields.io/github/languages/top/peacetrue/peacetrue-common[GitHub top language]
+
