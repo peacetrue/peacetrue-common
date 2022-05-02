@@ -3,6 +3,7 @@ version "${peaceCommonVersion}${tailSnapshot}"
 description "公共组件，包含常用的辅助类，无明确主题范围"
 
 apply plugin: "java"
+apply plugin: "jacoco"
 
 repositories {
     mavenLocal()
@@ -21,3 +22,16 @@ dependencies {
         useJUnitPlatform()
     }
 }
+
+test {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+

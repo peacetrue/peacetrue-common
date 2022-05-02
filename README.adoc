@@ -12,4 +12,9 @@ v1.0, 2022-05-02: SNAPSHOT
 
 详情参考 https://peacetrue.cn/summarize/peacetrue-common/index.html[安宁的博客^]。
 
-
+image:https://img.shields.io/codecov/c/github/peacetrue/peacetrue-common/master[Codecov branch]
+// https://shields.io/
+// https://shields.io/category/build
+// https://shields.io/category/coverage
+// image:https://img.shields.io/github/workflow/status/peacetrue/peacetrue-common/build/master[GitHub Workflow Status (branch)]
+// https://codecov.io/{vcsName}/{user}/{repo}/settings/badge.

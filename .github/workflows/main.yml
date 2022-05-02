@@ -30,3 +30,13 @@ jobs:
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
         arguments: build
+#https://github.com/marketplace/actions/codecov
+    - name: Codecov
+      uses: codecov/codecov-action@v3.1.0
+#      with:
+#        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+#        files: ./coverage1.xml,./coverage2.xml # optional
+#        flags: unittests # optional
+#        name: codecov-umbrella # optional
+#        fail_ci_if_error: true # optional (default = false)
+#        verbose: true # optional (default = false)
