@@ -1,5 +1,5 @@
-name: peacetrue-template-gradle
-title: gradle 模板项目
+name: peacetrue-common
+title: 公共组件
 version: master
 asciidoc:
   attributes:
