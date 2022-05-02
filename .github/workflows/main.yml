@@ -38,9 +38,10 @@ jobs:
         name: test-result-junit
         path: build/reports/tests/test
 
-##https://github.com/marketplace/actions/test-reporter
-#    - name: Test Reporter
-#      uses: dorny/test-reporter@v1.5.0
+#https://github.com/marketplace/actions/test-reporter
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1.5.0
+
 #https://github.com/marketplace/actions/codecov
     - name: Codecov
       uses: codecov/codecov-action@v3.1.0
