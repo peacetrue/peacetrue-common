@@ -1,37 +1,3 @@
 group "com.github.peacetrue"
 version "${peaceCommonVersion}${tailSnapshot}"
 description "公共组件，包含常用的辅助类，无明确主题范围"
-
-apply plugin: "java"
-apply plugin: "jacoco"
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
-}
-
-dependencies {
-    implementation platform("com.github.peacetrue:peacetrue-dependencies:${peaceDependenciesVersion}${tailSnapshot}")
-    implementation "com.google.code.findbugs:jsr305"
-
-    testImplementation "org.junit.jupiter:junit-jupiter-api"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
-    test {
-        useJUnitPlatform()
-    }
-}
-
-test {
-    finalizedBy jacocoTestReport
-}
-
-jacocoTestReport {
-    dependsOn test
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-}
-
