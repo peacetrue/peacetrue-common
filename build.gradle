@@ -1,3 +1,11 @@
+plugins {
+    id "com.github.peacetrue.gradle.build-convention" version "${peaceGradleVersion}${tailSnapshot}"
+}
+
 group "com.github.peacetrue"
 version "${peaceCommonVersion}${tailSnapshot}"
 description "公共组件，包含常用的辅助类，无明确主题范围"
+
+dependencies {
+    testImplementation "com.fasterxml.jackson.core:jackson-databind"
+}

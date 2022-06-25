@@ -11,14 +11,6 @@ import java.util.function.Predicate;
  **/
 class PredicateUtilsTest {
 
-    @Test
-    void construct() {
-        Assertions.assertDoesNotThrow(() -> {
-            new PredicateUtils() {
-            };
-        });
-    }
-
     private static boolean isSuccess(Object anything) {
         return true;
     }

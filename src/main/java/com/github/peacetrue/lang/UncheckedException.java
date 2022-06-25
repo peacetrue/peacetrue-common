@@ -9,7 +9,7 @@ package com.github.peacetrue.lang;
  * <p>
  * 一个最典型的案例是 {@link Cloneable}：
  *
- *     <pre>
+ * <pre>
  *     public static class TestBean implements Cloneable {
  *         public TestBean clone() {
  *             try {
@@ -26,6 +26,11 @@ package com.github.peacetrue.lang;
  */
 public class UncheckedException extends RuntimeException {
 
+    /**
+     * 将受检异常包装为非受检异常。
+     *
+     * @param cause 实际的受检异常
+     */
     public UncheckedException(Throwable cause) {
         super(cause);
     }

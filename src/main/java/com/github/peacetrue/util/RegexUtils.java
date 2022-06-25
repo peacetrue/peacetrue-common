@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public abstract class RegexUtils {
 
     /** 抽象工具类，防止实例化 */
-    protected RegexUtils() {
+    private RegexUtils() {
     }
 
     /**

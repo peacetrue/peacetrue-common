@@ -11,14 +11,6 @@ import java.util.regex.Pattern;
 class RegexUtilsTest {
 
     @Test
-    void construct() {
-        Assertions.assertDoesNotThrow(() -> {
-            new RegexUtils() {
-            };
-        });
-    }
-
-    @Test
     void extractValue() {
         //提取符合正则表达式匹配的值
         Pattern pattern = Pattern.compile("Hi, (\\w+), I'm (\\w+)");

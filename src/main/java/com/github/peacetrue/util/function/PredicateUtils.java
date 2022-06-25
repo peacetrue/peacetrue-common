@@ -10,8 +10,7 @@ import java.util.function.Predicate;
  **/
 public abstract class PredicateUtils {
 
-    /** 抽象工具类，无需实例化 */
-    protected PredicateUtils() {
+    private PredicateUtils() {
     }
 
     /**
@@ -65,7 +64,7 @@ public abstract class PredicateUtils {
     }
 
     /**
-     * 将单参数断言扩展为双参数断言，实际使用首个参数。
+     * 将单参数断言扩展为双参数断言，实际使用首位参数。
      *
      * @param predicate 断言
      * @param <T>       断言首部参数的类型

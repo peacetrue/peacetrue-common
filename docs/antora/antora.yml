@@ -4,6 +4,7 @@ version: master
 asciidoc:
   attributes:
     numbered: '@'
+    app-name: 'peacetrue-common'
 start_page: ROOT:index.adoc
 nav:
   - modules/ROOT/nav.adoc
