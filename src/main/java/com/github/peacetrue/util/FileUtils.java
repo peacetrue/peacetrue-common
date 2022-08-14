@@ -213,7 +213,7 @@ public abstract class FileUtils {
         }
 
         /**
-         * 同 {@link DeletedCounts#increase(DeletedCounts, DeletedCounts)}，返回新对象。
+         * 递增删除文件数目，返回新对象。
          *
          * @param increment 删除文件数目对象
          * @return 新的删除文件数目对象
