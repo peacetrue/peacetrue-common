@@ -18,7 +18,7 @@ image:https://img.shields.io/github/workflow/status/peacetrue/{app-name}/build/m
 image:https://foresight.service.thundra.io/public/api/v1/badge/success?repoId={foresight-repoId}["Foresight",link="https://foresight.thundra.io/repositories/github/peacetrue/{app-name}/test-runs"]
 image:https://img.shields.io/codecov/c/github/peacetrue/{app-name}/master["Codecov",link="https://app.codecov.io/gh/peacetrue/{app-name}"]
 
-详情参考 https://peacetrue.cn/summarize/{app-name}/index.html[安宁的博客^]。
+详情参考 https://peacetrue.github.io/{app-name}/index.html[安宁的知识库^]。
 
 
 // https://shields.io/
