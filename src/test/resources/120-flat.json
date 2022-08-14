@@ -1,0 +1,14 @@
+{
+  "requestId" : null,
+  "id" : "",
+  "name" : "admin",
+  "password" : "123456",
+  "roles[0].id" : "1",
+  "roles[0].name" : "admin",
+  "roles[0].tag" : [ "read", "write" ],
+  "roles[3].id" : "3",
+  "roles[2].name" : "user",
+  "employee.id" : "1",
+  "employee.name" : "Jone",
+  "employee.tag" : [ "good", "better" ]
+}
