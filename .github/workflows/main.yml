@@ -48,7 +48,7 @@ jobs:
           test_framework: JUNIT
           test_path: build/test-results/test
           coverage_format: JACOCO/XML
-          coverage_path: build/reports/test
+          coverage_path: build/reports/jacoco/test
 
       #https://github.com/marketplace/actions/codecov
       - name: Codecov
