@@ -5,8 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.github.peacetrue.beanmap.BeanMapUtils.*;
-
 /**
  * 扁平化属性访问器，可将层级式对象转换为扁平式对象。
  *
@@ -16,8 +14,6 @@ public class FlatPropertyVisitor<T> implements SupplierPropertyVisitor<Map<Strin
 
     /** 扁平的 BeanMap */
     protected final Map<String, T> flat;
-    /** 属性路径前缀 */
-    protected String propertyPathPrefix = "";
 
     /**
      * 指定扁平的 BeanMap 容量。
@@ -38,8 +34,8 @@ public class FlatPropertyVisitor<T> implements SupplierPropertyVisitor<Map<Strin
     }
 
     @Override
-    public void visit(String name, @Nullable Object value) {
-        flat.put(propertyPathPrefix + name, handleValue(value));
+    public void visitPrimitive(@Nullable String path, @Nullable Object value) {
+        flat.put(path, handleValue(value));
     }
 
     /**
@@ -55,36 +51,9 @@ public class FlatPropertyVisitor<T> implements SupplierPropertyVisitor<Map<Strin
     }
 
     @Override
-    public void visit(String name, Map<String, Object> bean) {
-        String temp = this.propertyPathPrefix;
-        this.propertyPathPrefix = buildBeanPropertyPathPrefix(this.propertyPathPrefix, name);
-        SupplierPropertyVisitor.super.visit(name, bean);
-        this.propertyPathPrefix = temp;
-    }
-
-    @Override
-    public void visit(String name, int index, @Nullable Map<String, Object> bean) {
-        String temp = this.propertyPathPrefix;
-        this.propertyPathPrefix = buildBeansPropertyPathPrefix(this.propertyPathPrefix, name, index);
-        SupplierPropertyVisitor.super.visit(name, index, bean);
-        this.propertyPathPrefix = temp;
-    }
-
-    @Override
     public Map<String, T> get() {
         return flat;
     }
 
-    private static String buildBeanPropertyPathPrefix(String propertyPathPrefix, String name) {
-        //xxx.    user   .
-        //prefix  name
-        return propertyPathPrefix + name + BEAN_SEPARATOR;
-    }
-
-    private static String buildBeansPropertyPathPrefix(String propertyPathPrefix, String name, int index) {
-        //xxx.    roles[   0   ] .
-        //prefix  name   index
-        return propertyPathPrefix + name + LIST_START_SEPARATOR + index + LIST_END_SEPARATOR + BEAN_SEPARATOR;
-    }
 
 }

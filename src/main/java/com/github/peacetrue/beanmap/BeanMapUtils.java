@@ -2,6 +2,7 @@ package com.github.peacetrue.beanmap;
 
 import com.github.peacetrue.util.RegexUtils;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
@@ -47,7 +48,7 @@ public abstract class BeanMapUtils {
      * @return 提取物
      */
     public static <T> T walkTree(Map<String, Object> tiered, SupplierPropertyVisitor<T> visitor) {
-        walkTree(tiered, (PropertyVisitor) visitor);
+        visitor.visitBean(null, tiered);
         return visitor.get();
     }
 
@@ -57,39 +58,16 @@ public abstract class BeanMapUtils {
      * @param tiered  层级化对象
      * @param visitor 属性访问者
      */
-    @SuppressWarnings("unchecked")
     public static void walkTree(Map<String, Object> tiered, PropertyVisitor visitor) {
-        for (Map.Entry<String, Object> entry : tiered.entrySet()) {
-            String propertyName = entry.getKey();
-            Object propertyValue = entry.getValue();
-            if (isBean(propertyValue)) {
-                visitor.visit(propertyName, (Map<String, Object>) propertyValue);
-            } else if (isBeans(propertyValue)) {
-                visitor.visit(propertyName, (Collection<Map<String, Object>>) propertyValue);
-            } else {
-                visitor.visit(propertyName, propertyValue);
-            }
-        }
+        visitor.visitBean(null, tiered);
     }
 
-    private static boolean isBean(Object propertyValue) {
+    static boolean isBean(@Nullable Object propertyValue) {
         return propertyValue instanceof Map;
     }
 
-    private static boolean isBeans(Object propertyValue) {
-        return propertyValue instanceof Collection<?>
-                && isElementTypeMatched((Collection<?>) propertyValue);
-    }
-
-    /** 集合中允许元素值为 null，但至少有一个不是 null */
-    private static boolean isElementTypeMatched(Collection<?> collection) {
-        boolean beanExists = false;
-        for (Object item : collection) {
-            if (item == null) continue;
-            if (!Map.class.isAssignableFrom(item.getClass())) return false;
-            beanExists = true;
-        }
-        return beanExists;
+    static boolean isCollection(@Nullable Object propertyValue) {
+        return propertyValue instanceof Collection;
     }
 
     /**
@@ -133,7 +111,8 @@ public abstract class BeanMapUtils {
                 if (nameIndex.length == 0) {
                     tiered.put(propertyPath, property.getValue());
                 } else {
-                    throw new IllegalStateException("tail list expression([?]) is not supported: " + propertyPath);
+                    List<Object> subTiered = (List<Object>) tiered.computeIfAbsent(nameIndex[0], item -> new LinkedList<>());
+                    setListElement(subTiered, Integer.parseInt(nameIndex[1].trim()), property.getValue());
                 }
             } else {
                 String headPropertyPath = propertyPath.substring(0, beanSeparateIndex);
@@ -154,8 +133,8 @@ public abstract class BeanMapUtils {
         }
     }
 
-    private static <T> T setListElement(List<T> elements, int index, T element) {
-        if (index > listMaxSize) {
+    static <T> T setListElement(List<T> elements, int index, T element) {
+        if (index >= listMaxSize) {
             throw new IllegalArgumentException("Index " + index + " exceeds upper limit: " + listMaxSize);
         }
         //直接设置超过 size 的 index 会报错，需要先填充 null
@@ -180,5 +159,28 @@ public abstract class BeanMapUtils {
         );
     }
 
+    static String concat(String path, String name) {
+        return path + BEAN_SEPARATOR + name; //user.employee
+    }
+
+    static String concatSafely(@Nullable String path, String name) {
+        return path == null
+                ? name
+                : concat(path, name);
+    }
+
+    static String concat(int index) {
+        return LIST_START_SEPARATOR + String.valueOf(index) + LIST_END_SEPARATOR; // [0]
+    }
+
+    static String concat(String path, int index) {
+        return path + concat(index); // roles[0]
+    }
+
+    static String concatSafely(@Nullable String path, int index) {
+        return path == null
+                ? concat(index)
+                : concat(path, index);
+    }
 
 }

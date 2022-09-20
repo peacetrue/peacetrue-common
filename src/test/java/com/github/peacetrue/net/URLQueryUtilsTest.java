@@ -33,8 +33,8 @@ class URLQueryUtilsTest {
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
 
         String query = "requestId&id=&name=admin&password=123456" +
-                "&roles[0].id=1&roles[0].name=admin&roles[0].tag=read&roles[0].tag=write&roles[3].id=3&roles[2].name=user" +
-                "&employee.id=1&employee.name=Jone&employee.tag=good&employee.tag=better";
+                "&roles[0].id=1&roles[0].name=admin&roles[0].tag[0]=read&roles[0].tag[1]=write&roles[1].id=3&roles[2].name=user" +
+                "&employee.id=1&employee.name=Jone&employee.tag[0]=good&employee.tag[1]=better";
         log.info("    query: {}", query);
         Files.write(Paths.get(getTestResourceAbsolutePath("/100-query.txt")), query.getBytes(StandardCharsets.UTF_8), CREATE, TRUNCATE_EXISTING);
         Map<String, List<String>> form = URLQueryUtils.parseQuery(query + "&  &");
@@ -50,26 +50,27 @@ class URLQueryUtilsTest {
         Files.write(Paths.get(getTestResourceAbsolutePath("/130-tiered.json")), objectWriter.writeValueAsBytes(tiered), CREATE, TRUNCATE_EXISTING);
 
         Map<String, Object> backFlat = BeanMapUtils.flatten(tiered);
-        log.info("backFlat: {}", backFlat);
+        log.info(" backFlat: {}", backFlat);
         Assertions.assertEquals(flat, backFlat);
 
         Map<String, List<String>> backForm = URLQueryUtils.fromBeanMap(backFlat);
-        log.info("backForm: {}", backForm);
+        log.info(" backForm: {}", backForm);
         Assertions.assertEquals(form, backForm);
 
         String backQuery = URLQueryUtils.toQuery(backForm);
-        log.info("backQuery: {}", backQuery);
+        log.info(" backQuery: {}", backQuery);
         Assertions.assertEquals(query.length(), URLCodecUtils.decode(backQuery).length());
     }
 
     @Test
-    void tailArrayNotSupported() {
+    void tailArraySupported() {
         String query = "tag[0]=good&tag[0]=ok&tag[2]=better";
         log.info("         query: {}", query);
         Map<String, List<String>> flat = URLQueryUtils.parseQuery(query);
         log.info("          flat: {}", flat);
-        IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> BeanMapUtils.tier(flat));
-        log.error("exception", exception);
+        Map<String, Object> tier = BeanMapUtils.tier(URLQueryUtils.toBeanMap(flat));
+        log.info("          tier: {}", tier);
+        Assertions.assertTrue(tier.get("tag") instanceof List);
     }
 
     @Test
@@ -79,7 +80,7 @@ class URLQueryUtilsTest {
                 "list", list,
                 "element", 1
         ));
-        Assertions.assertEquals(list.toString(), flat.get("list").toString());
+        Assertions.assertEquals("1", flat.get("list[0]").get(0));
         Assertions.assertEquals("1", flat.get("element").get(0));
     }
 

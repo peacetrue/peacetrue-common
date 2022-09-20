@@ -1,0 +1,71 @@
+= BeanMap
+
+`BeanMap` 是 `LinkedHashMap<String, Object>` 的子类，
+表示一个泛化的 Java Bean 对象。
+
+如果说一个方法接收 `BeanMap` 作为参数，
+实际上表示它可以接收 `Map<String, Object>`，
+`BeanMap` 的好处在于可以避免泛型转换。
+
+== 格式
+
+`BeanMap` 有 2 种格式：层级和扁平。
+
+假设，你有如下 `User` 类：
+
+[source%nowrap,java]
+-----
+include::example$src/test/java/com/github/peacetrue/beanmap/BeanMapUtilsTest.java[tag=user]
+-----
+
+层级格式示例如下：
+
+.tiered
+[source%nowrap,json]
+-----
+include::example$src/test/resources/200-tiered.json[]
+-----
+
+扁平格式示例如下：
+
+.flat
+[source%nowrap,json]
+-----
+include::example$src/test/resources/210-flatten.json[]
+-----
+
+相信读者已经区分出，这 2 种格式的区别了。
+
+
+== 属性遍历
+
+假设，你有一个上述层级格式的数据，可以通过如下方式遍历所有属性：
+
+[source%nowrap,java]
+-----
+include::example$src/test/java/com/github/peacetrue/beanmap/BeanMapUtilsTest.java[tag=log]
+-----
+
+输出日志如下：
+
+[source%nowrap,log]
+----
+path: id, value: null
+path: name, value: admin
+path: password, value:
+path: roles[0].id, value: 1
+path: roles[0].name, value: admin
+path: roles[0].tags[0], value: read
+path: roles[0].tags[1], value: write
+path: roles[1], value: null
+path: roles[2].id, value: null
+path: roles[2].name, value: user
+path: roles[2].tags, value: null
+path: roles[3].id, value: 3
+path: roles[3].name, value: null
+path: roles[3].tags, value: null
+path: employee.id, value: 1
+path: employee.name, value: Jone
+path: employee.tags[0], value: good
+path: employee.tags[1], value: better
+----

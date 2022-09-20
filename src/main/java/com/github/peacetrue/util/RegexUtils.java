@@ -9,9 +9,8 @@ import java.util.regex.Pattern;
  *
  * @author peace
  */
-public abstract class RegexUtils {
+public class RegexUtils {
 
-    /** 抽象工具类，防止实例化 */
     private RegexUtils() {
     }
 

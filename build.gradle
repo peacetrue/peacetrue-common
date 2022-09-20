@@ -8,4 +8,5 @@ description "公共组件，包含常用的辅助类，无明确主题范围"
 
 dependencies {
     testImplementation "com.fasterxml.jackson.core:jackson-databind"
+    testImplementation "com.fasterxml.jackson.dataformat:jackson-dataformat-properties"
 }

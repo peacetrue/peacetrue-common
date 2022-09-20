@@ -1,42 +1,26 @@
 package com.github.peacetrue.beanmap;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * BeanMap 列表。
  * <p>
- * 类型转换时，避免泛型。例如：用于作为 RestTemplate 获取返回结果的类型。
+ * 类型转换时，避免泛型。例如：用作 {@code RestTemplate} 获取返回结果的类型。
  *
  * @author peace
  **/
-public class BeanMapList extends ArrayList<BeanMap> {
+public class BeanMapList extends LinkedList<BeanMap> {
 
-    /**
-     * Constructs an empty list with an initial capacity of ten.
-     */
+    /** 构造一个空列表。 */
     public BeanMapList() {
         super();
     }
 
     /**
-     * Constructs an empty list with the specified initial capacity.
+     * 构造一个包含初始值的列表。
      *
-     * @param initialCapacity the initial capacity of the list
-     * @throws IllegalArgumentException if the specified initial capacity
-     *                                  is negative
-     */
-    public BeanMapList(int initialCapacity) {
-        super(initialCapacity);
-    }
-
-    /**
-     * Constructs a list containing the elements of the specified
-     * collection, in the order they are returned by the collection's
-     * iterator.
-     *
-     * @param c the collection whose elements are to be placed into this list
-     * @throws NullPointerException if the specified collection is null
+     * @param c 初始列表
      */
     public BeanMapList(Collection<? extends BeanMap> c) {
         super(c);

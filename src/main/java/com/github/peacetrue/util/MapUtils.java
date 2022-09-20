@@ -1,9 +1,6 @@
 package com.github.peacetrue.util;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -62,5 +59,45 @@ public class MapUtils {
     public static <K, V> List<V> values(Map<K, V> map, K... keys) {
         return Stream.of(keys).map(map::get).collect(Collectors.toList());
     }
+
+    /**
+     * 美化输出 Map。
+     * Map 的 key、value 可为任意类型，
+     * 实际只处理 {@link String} 类型的 key，
+     * value 使用 {@link String#valueOf(Object)} 转换为 {@link String}。
+     * <p>
+     * 可用于格式化方法参数，展示效果如下：
+     * <pre>
+     * templateLocation : file:template
+     * optionsLocation  : file:antora-options.properties
+     * variablesLocation: file:antora-variables.properties
+     * resultPath       : result
+     * </pre>
+     *
+     * @param map 待美化的 Map
+     * @return Map 的字符串表示
+     */
+    public static String prettify(Map<?, ?> map) {
+        int largestKeyLength = map.keySet().stream()
+                .filter(String.class::isInstance)
+                .map(String.class::cast)
+                .max(Comparator.comparing(String::length))
+                .orElse("")
+                .length();
+        return map.entrySet().stream()
+                .filter(entry -> entry.getKey() instanceof String)
+                .map(entry -> String.format("%s: %s", rightPad((String) entry.getKey(), largestKeyLength), entry.getValue()))
+                .collect(Collectors.joining("\n\t", "\n\t", ""));
+    }
+
+    private static String rightPad(String key, int length) {
+        int keyLength = key.length();
+        if (keyLength >= length) return key;
+        return key +
+                IntStream.range(0, length - keyLength)
+                        .mapToObj(i -> " ")
+                        .collect(Collectors.joining(""));
+    }
+
 
 }

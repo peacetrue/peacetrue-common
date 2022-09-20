@@ -1,1 +1,1 @@
-requestId&id=&name=admin&password=123456&roles[0].id=1&roles[0].name=admin&roles[0].tag=read&roles[0].tag=write&roles[3].id=3&roles[2].name=user&employee.id=1&employee.name=Jone&employee.tag=good&employee.tag=better
+requestId&id=&name=admin&password=123456&roles[0].id=1&roles[0].name=admin&roles[0].tag[0]=read&roles[0].tag[1]=write&roles[1].id=3&roles[2].name=user&employee.id=1&employee.name=Jone&employee.tag[0]=good&employee.tag[1]=better

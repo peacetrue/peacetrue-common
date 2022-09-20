@@ -1,6 +1,7 @@
 package com.github.peacetrue.util;
 
 import com.google.common.collect.ImmutableMap;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.ArrayUtils;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Assertions;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiPredicate;
@@ -15,6 +17,7 @@ import java.util.function.BiPredicate;
 /**
  * @author peace
  **/
+@Slf4j
 class MapUtilsTest {
 
     private static final EasyRandom EASY_RANDOM = new EasyRandom();
@@ -26,9 +29,9 @@ class MapUtilsTest {
         Object[] values = EASY_RANDOM.objects(Object.class, length).toArray(Object[]::new);
         Map<String, Object> map = MapUtils.from(keys, values);
         Assertions.assertTrue(map.size() <= length);
-        map.forEach((key, value) -> {
-            Assertions.assertEquals(value, values[ArrayUtils.indexOf(keys, key)]);
-        });
+        map.forEach((key, value) ->
+                Assertions.assertEquals(value, values[ArrayUtils.indexOf(keys, key)])
+        );
     }
 
     @Test
@@ -64,4 +67,23 @@ class MapUtilsTest {
         remove(map, (key, value) -> key.equals(keys[0]));
         Assertions.assertEquals(size - 1, map.size());
     }
+
+    @Test
+    void prettify() {
+        Assertions.assertEquals("\n\t", MapUtils.prettify(Collections.emptyMap()));
+
+        String prettify = MapUtils.prettify(MapUtils.from(
+                new String[]{"templateLocation", "optionsLocation", "variablesLocation", "resultPath"},
+                new String[]{"file:template", "file:antora-options.properties", "file:antora-variables.properties", "result"}
+        ));
+        log.info("prettify args: {}", prettify);
+        Assertions.assertEquals(
+                "\n" +
+                        "\ttemplateLocation : file:template\n" +
+                        "\toptionsLocation  : file:antora-options.properties\n" +
+                        "\tvariablesLocation: file:antora-variables.properties\n" +
+                        "\tresultPath       : result",
+                prettify);
+    }
+
 }
