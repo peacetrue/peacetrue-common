@@ -1,41 +1,13 @@
 = 简介
+:website: https://peacetrue.github.io
+:app-name: peacetrue-common
+:foresight-repoId: 1b9d03d7-1643-4809-a42f-60d8d4d69575
 
-peacetrue-common 是一个公共组件，包含常用的辅助类，无明确主题范围。
+image:https://img.shields.io/lgtm/grade/java/github/peacetrue/{app-name}["LGTM Grade",link="https://lgtm.com/projects/g/peacetrue/{app-name}"]
+image:https://snyk.io/test/github/peacetrue/{app-name}/badge.svg["Snyk",link="https://app.snyk.io/org/peacetrue"]
+image:https://img.shields.io/github/workflow/status/peacetrue/{app-name}/build/master["GitHub Workflow Status",link="https://github.com/peacetrue/{app-name}/actions"]
+image:https://foresight.service.thundra.io/public/api/v1/badge/success?repoId={foresight-repoId}["Foresight",link="https://foresight.thundra.io/repositories/github/peacetrue/{app-name}/test-runs"]
+image:https://img.shields.io/codecov/c/github/peacetrue/{app-name}/master["Codecov",link="https://app.codecov.io/gh/peacetrue/{app-name}"]
 
-
-== 功能简介
-
-=== Bean 对象和查询字符串互转
-
-* BeanMap：对于类型不确定的 Bean，可以使用 Map 来表示
-** TieredBeanMap：层级式的 BeanMap，即对象中嵌套对象
-** FlatBeanMap：扁平式的 BeanMap，值都是原始类型或者原始类型集合
-
-.Bean 对象 转 查询字符串
-[plantuml,target=BeanToQueryFlow,format=png]
-----
-:Bean 对象;
-note right: ObjectMapper.convertValue
-:TieredBeanMap 对象：Map<String,Object>;
-note right: BeanMapUtils.flatten
-:FlatBeanMap 对象：Map<String,Object>;
-note right: URLQueryUtils.fromBeanMap
-:表单参数对象：Map<String,List<Object>>;
-note right: URLQueryUtils.toQuery
-:查询字符串：String;
-----
-
-.查询字符串 转 Bean 对象
-[plantuml,target=QueryToBeanFlow,format=png]
-----
-:查询字符串：String;
-note right: URLQueryUtils.parseQuery
-:表单参数对象：Map<String,List<Object>>;
-note right: URLQueryUtils.toBeanMap
-:FlatBeanMap 对象：Map<String,Object>;
-note right: BeanMapUtils.tier
-:TieredBeanMap 对象：Map<String,Object>;
-note right: ObjectMapper.convertValue
-:Bean 对象;
-----
-
+{website}/{app-name}/[{app-name}] 是一个公共组件，包含常用的辅助类，无明确主题范围。
+//@formatter:off
