@@ -10,11 +10,11 @@ import java.util.function.Supplier;
  **/
 public class ElapsedTimeUtils {
 
-    private ElapsedTimeUtils() {
-    }
-
     /** 时钟。用于获取当前时间（毫秒） */
     private static Supplier<Long> clock = System::currentTimeMillis;
+
+    private ElapsedTimeUtils() {
+    }
 
     /**
      * 设置时钟。

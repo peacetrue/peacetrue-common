@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
  *
  * @author peace
  **/
-public abstract class BeanMapUtils {
+public class BeanMapUtils {
 
     /** 嵌套对象分割符 */
     public static final char BEAN_SEPARATOR = '.';

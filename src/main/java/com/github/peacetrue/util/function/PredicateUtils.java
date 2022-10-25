@@ -8,7 +8,7 @@ import java.util.function.Predicate;
  *
  * @author peace
  **/
-public abstract class PredicateUtils {
+public class PredicateUtils {
 
     private PredicateUtils() {
     }

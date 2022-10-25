@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
  * @see URLEncoder
  * @see URLDecoder
  **/
-public abstract class URLCodecUtils {
+public class URLCodecUtils {
 
     private URLCodecUtils() {
     }

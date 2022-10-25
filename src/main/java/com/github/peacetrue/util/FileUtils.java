@@ -15,7 +15,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  * @see Files
  * @see Path
  */
-public abstract class FileUtils {
+public class FileUtils {
 
     /** 父级相对路径 */
     public static final String PARENT_RELATIVE_PATH = "..";
@@ -204,6 +204,17 @@ public abstract class FileUtils {
         }
 
         /**
+         * 递增删除文件数目。
+         *
+         * @param source    源始删除文件对象
+         * @param increment 递增删除文件对象
+         */
+        public static void increase(DeletedCounts source, DeletedCounts increment) {
+            source.regularFile += increment.regularFile;
+            source.directoryFile += increment.directoryFile;
+        }
+
+        /**
          * 获取总数。
          *
          * @return 总数
@@ -222,17 +233,6 @@ public abstract class FileUtils {
             DeletedCounts deletedCounts = new DeletedCounts(this);
             increase(deletedCounts, increment);
             return deletedCounts;
-        }
-
-        /**
-         * 递增删除文件数目。
-         *
-         * @param source    源始删除文件对象
-         * @param increment 递增删除文件对象
-         */
-        public static void increase(DeletedCounts source, DeletedCounts increment) {
-            source.regularFile += increment.regularFile;
-            source.directoryFile += increment.directoryFile;
         }
     }
 

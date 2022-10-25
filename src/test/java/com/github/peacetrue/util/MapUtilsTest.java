@@ -22,6 +22,10 @@ class MapUtilsTest {
 
     private static final EasyRandom EASY_RANDOM = new EasyRandom();
 
+    public static <K, V> void remove(Map<K, V> map, BiPredicate<K, V> matched) {
+        map.entrySet().removeIf(entry -> matched.test(entry.getKey(), entry.getValue()));
+    }
+
     @Test
     void from() {
         int length = 10;
@@ -51,10 +55,6 @@ class MapUtilsTest {
         List<Serializable> values2 = values.get(0);
         Assertions.assertEquals(map.get("id"), values2.get(1));
         Assertions.assertEquals(map.get("name"), values2.get(0));
-    }
-
-    public static <K, V> void remove(Map<K, V> map, BiPredicate<K, V> matched) {
-        map.entrySet().removeIf(entry -> matched.test(entry.getKey(), entry.getValue()));
     }
 
     @Test

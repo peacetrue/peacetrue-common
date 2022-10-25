@@ -7,6 +7,7 @@ import java.util.Objects;
 
 /**
  * 一个表示范围的值对象。
+ * 值对象里面不要添加其他容易导致反射获取到属性的方法。
  * <p>
  * 示例：
  * <pre>
@@ -15,7 +16,7 @@ import java.util.Objects;
  * [-∞,+∞]：范围不限（值为 {@code null}），包含边界值
  * </pre>
  *
- * @param <T> 范围类型，必须是可序列化的
+ * @param <T> 范围类型
  * @author peace
  */
 @Getter
@@ -86,37 +87,41 @@ public class Range<T> {
     /**
      * 范围对象是否为空，上下边界都为 {@code null}。
      *
+     * @param range 范围
      * @return {@code true} 如果为空，否则 {@code false}
      */
-    public boolean isEmpty() {
-        return lowerBound == null && upperBound == null;
+    public static boolean isEmpty(Range<?> range) {
+        return range.lowerBound == null && range.upperBound == null;
     }
 
     /**
      * 范围对象是否满的，上下边界都不为 {@code null}。
      *
+     * @param range 范围
      * @return {@code true} 如果为满，否则 {@code false}
      */
-    public boolean isFull() {
-        return lowerBound != null && upperBound != null;
+    public static boolean isFull(Range<?> range) {
+        return range.lowerBound != null && range.upperBound != null;
     }
 
     /**
      * 是否包含下边界，{@link #lowerInclusive} 不是 false 即为包含。
      *
+     * @param range 范围
      * @return true 如果包含，否则 false
      */
-    public boolean isLowerInclusive() {
-        return !Boolean.FALSE.equals(lowerInclusive);
+    public static boolean isLowerInclusive(Range<?> range) {
+        return !Boolean.FALSE.equals(range.lowerInclusive);
     }
 
     /**
      * 是否包含上边界，{@link #upperInclusive} 不是 false 即为包含。
      *
+     * @param range 范围
      * @return true 如果包含，否则 false
      */
-    public boolean isUpperInclusive() {
-        return !Boolean.FALSE.equals(upperInclusive);
+    public static boolean isUpperInclusive(Range<?> range) {
+        return !Boolean.FALSE.equals(range.upperInclusive);
     }
 
     @Override
@@ -138,10 +143,10 @@ public class Range<T> {
     @Override
     public String toString() {
         return String.format("%s%s, %s%s",
-                isLowerInclusive() ? '[' : '(',
+                isLowerInclusive(this) ? '[' : '(',
                 Objects.toString(lowerBound, "-∞"),
                 Objects.toString(upperBound, "+∞"),
-                isUpperInclusive() ? ']' : ')'
+                isUpperInclusive(this) ? ']' : ')'
         );
     }
 }

@@ -10,8 +10,9 @@ class UncheckedExceptionTest {
 
     @Test
     void construct() {
+        IllegalStateException illegalStateException = new IllegalStateException();
         Assertions.assertThrows(UncheckedException.class, () -> {
-            throw new UncheckedException(new IllegalStateException());
+            throw new UncheckedException(illegalStateException);
         });
     }
 

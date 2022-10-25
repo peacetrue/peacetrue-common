@@ -1,5 +1,6 @@
 package com.github.peacetrue.time.format;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -10,18 +11,34 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static com.github.peacetrue.time.format.DateTimeFormatterUtils.FLEX_D_Y_M_D_H_M_S;
+import static com.github.peacetrue.time.format.DateTimeFormatterUtils.FLEX_ISO_LOCAL_DATE_TIME;
 
 
 /**
  * @author peace
  **/
+@Slf4j
 class DateTimeFormatterUtilsTest {
 
     @Test
+    void flexible() {
+        Stream.of(
+                "2020",
+                "2020-01",
+                "2020-01-01",
+                "2020-01-01T01",
+                "2020-01-01T01:01",
+                "2020-01-01T01:01:01",
+                "2020-01-01T01:01:01.001"
+        ).forEach(date -> Assertions.assertDoesNotThrow(() ->
+                LocalDateTime.parse(date, FLEX_ISO_LOCAL_DATE_TIME)
+        ));
+    }
+
     void each() {
-        Field[] fields = DateTimeFormatterUtils.class.getDeclaredFields();
+        Field[] fields = DateTimeFormatterUtils_.class.getDeclaredFields();
         List<Field> fieldList = Arrays.stream(fields)
                 .filter(item -> item.getType().equals(DateTimeFormatter.class))
                 .collect(Collectors.toList());
@@ -31,25 +48,6 @@ class DateTimeFormatterUtilsTest {
             System.out.printf("%s: %s", field.getName(), zonedDateTime.format(formatter));
             System.out.println();
         }
-    }
-
-
-    public void p(Object m) {
-        System.out.println(m);
-    }
-
-    private LocalDateTime flex(String dateString) {
-        return LocalDateTime.parse(dateString, FLEX_D_Y_M_D_H_M_S);
-    }
-
-    @Test
-    void flexible() {
-        p(flex("2016")); // works as intended
-        p(flex("2016-05")); // Text '201605' could not be parsed at index 0
-        p(flex("2016-05-04")); // Text '20160504' could not be parsed at index 0
-        p(flex("2016-05-04 16")); // Text '2016050416' could not be parsed at index 0
-        p(flex("2016-05-04 16-36"));
-        Assertions.assertDoesNotThrow(() -> p(flex("2016-05-04 16-36-55")));
     }
 
 }

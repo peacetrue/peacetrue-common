@@ -1,6 +1,6 @@
 package com.github.peacetrue.range;
 
-import com.github.peacetrue.util.ObjectUtils;
+import com.github.peacetrue.lang.ObjectUtils;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -16,9 +16,8 @@ import java.time.ZoneId;
 @NoArgsConstructor
 public class LongRange extends ComparableRange<Long> implements Serializable {
 
-    private static final long serialVersionUID = 0L;
-
     public static final LongRange DEFAULT = new LongRange();
+    private static final long serialVersionUID = 0L;
 
     public LongRange(Long bound) {
         super(bound);
@@ -39,18 +38,6 @@ public class LongRange extends ComparableRange<Long> implements Serializable {
     /**
      * 递增范围对象边界值。
      *
-     * @param increment 增量值
-     * @return 递增边界后的范围对象，返回新对象不改变源对象
-     */
-    public LongRange increase(long increment) {
-        LongRange range = new LongRange(this);
-        increase(range, increment);
-        return range;
-    }
-
-    /**
-     * 递增范围对象边界值。
-     *
      * @param range     范围对象
      * @param increment 增量值
      */
@@ -62,11 +49,28 @@ public class LongRange extends ComparableRange<Long> implements Serializable {
     /**
      * 获取上下边界差值。
      *
+     * @param range 范围
      * @return 上下边界差值
      * @throws NullPointerException 如果上下边界中存在 {@code null} 值
      */
-    public Long getOffset() {
-        return getUpperBound() - getLowerBound();
+    public static Long getOffset(Range<Long> range) {
+        return range.getUpperBound() - range.getLowerBound();
+    }
+
+    private static LocalDateTime toLocalDateTime(Long bound, ZoneId zoneId) {
+        return Instant.ofEpochMilli(bound).atZone(zoneId).toLocalDateTime();
+    }
+
+    /**
+     * 递增范围对象边界值。
+     *
+     * @param increment 增量值
+     * @return 递增边界后的范围对象，返回新对象不改变源对象
+     */
+    public LongRange increase(long increment) {
+        LongRange range = new LongRange(this);
+        increase(range, increment);
+        return range;
     }
 
     /**
@@ -85,16 +89,12 @@ public class LongRange extends ComparableRange<Long> implements Serializable {
      * @return 转换为本地日期时间时间范围
      */
     public LocalDateTimeRange toLocalDateTimeRange(ZoneId zoneId) {
-        LocalDateTimeRange range = new LocalDateTimeRange();
-        range.setLowerInclusive(getLowerInclusive());
-        range.setUpperInclusive(getUpperInclusive());
-        ObjectUtils.acceptSafely(getLowerBound(), bound -> range.setLowerBound(toLocalDateTime(bound, zoneId)));
-        ObjectUtils.acceptSafely(getUpperBound(), bound -> range.setUpperBound(toLocalDateTime(bound, zoneId)));
-        return range;
-    }
-
-    private static LocalDateTime toLocalDateTime(Long bound, ZoneId zoneId) {
-        return Instant.ofEpochMilli(bound).atZone(zoneId).toLocalDateTime();
+        LocalDateTimeRange localDateTimeRange = new LocalDateTimeRange();
+        localDateTimeRange.setLowerInclusive(getLowerInclusive());
+        localDateTimeRange.setUpperInclusive(getUpperInclusive());
+        ObjectUtils.acceptSafely(getLowerBound(), bound -> localDateTimeRange.setLowerBound(toLocalDateTime(bound, zoneId)));
+        ObjectUtils.acceptSafely(getUpperBound(), bound -> localDateTimeRange.setUpperBound(toLocalDateTime(bound, zoneId)));
+        return localDateTimeRange;
     }
 
 }

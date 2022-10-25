@@ -1,4 +1,4 @@
-package com.github.peacetrue.util;
+package com.github.peacetrue.lang;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -9,10 +9,7 @@ import java.util.function.Supplier;
  * 对象工具类。
  *
  * @author peace
- * @deprecated
- * @see com.github.peacetrue.lang.ObjectUtils
  **/
-@Deprecated
 public class ObjectUtils {
 
     private ObjectUtils() {

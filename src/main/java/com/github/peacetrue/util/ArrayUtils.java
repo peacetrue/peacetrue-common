@@ -1,19 +1,14 @@
 package com.github.peacetrue.util;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 数组工具类。
  *
  * @author peace
  **/
-public abstract class ArrayUtils {
+public class ArrayUtils {
 
     private ArrayUtils() {
     }

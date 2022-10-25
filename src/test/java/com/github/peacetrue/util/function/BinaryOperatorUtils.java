@@ -5,7 +5,7 @@ package com.github.peacetrue.util.function;
  *
  * @author peace
  **/
-public abstract class BinaryOperatorUtils {
+public class BinaryOperatorUtils {
 
     private BinaryOperatorUtils() {
     }

@@ -24,11 +24,13 @@ import java.lang.annotation.*;
  * 从 Spring 5.x 版本拷贝，支持 Spring 4.x 版本使用。
  *
  * @author peace
+ * @deprecated
  */
 @Target(ElementType.PACKAGE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Nonnull
 @TypeQualifierDefault({ElementType.METHOD, ElementType.PARAMETER})
+@Deprecated
 public @interface NonNullApi {
 }

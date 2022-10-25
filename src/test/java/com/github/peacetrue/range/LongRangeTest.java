@@ -22,8 +22,9 @@ class LongRangeTest {
 
     @Test
     void getOffset() {
-        Assertions.assertThrows(NullPointerException.class, () -> new LongRange().getOffset());
-        Assertions.assertEquals(10, new LongRange(-5L, 5L).getOffset());
+        LongRange range = new LongRange();
+        Assertions.assertThrows(NullPointerException.class, () -> LongRange.getOffset(range));
+        Assertions.assertEquals(10, LongRange.getOffset(new LongRange(-5L, 5L)));
     }
 
     @Test

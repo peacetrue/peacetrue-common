@@ -26,6 +26,14 @@ public class ComparableRange<T extends Comparable<? super T>> extends Range<T> {
         super(range);
     }
 
+    private static <T extends Comparable<? super T>> boolean compareTo(
+            T value, T bound, boolean isLower, boolean isInclusive) {
+        if (bound == null) return true;
+        int compareTo = value.compareTo(bound);
+        if (isLower) return isInclusive ? compareTo >= 0 : compareTo > 0;
+        return isInclusive ? compareTo <= 0 : compareTo < 0;
+    }
+
     /**
      * 在此范围中是否包含指定值。
      * <p>
@@ -47,16 +55,8 @@ public class ComparableRange<T extends Comparable<? super T>> extends Range<T> {
      * @return true 如果在此范围中，否则 false
      */
     public boolean contains(T value) {
-        return compareTo(value, getLowerBound(), true, isLowerInclusive())
-                && compareTo(value, getUpperBound(), false, isUpperInclusive());
-    }
-
-    private static <T extends Comparable<? super T>> boolean compareTo(
-            T value, T bound, boolean isLower, boolean isInclusive) {
-        if (bound == null) return true;
-        int compareTo = value.compareTo(bound);
-        if (isLower) return isInclusive ? compareTo >= 0 : compareTo > 0;
-        return isInclusive ? compareTo <= 0 : compareTo < 0;
+        return compareTo(value, getLowerBound(), true, isLowerInclusive(this))
+                && compareTo(value, getUpperBound(), false, isUpperInclusive(this));
     }
 
 }

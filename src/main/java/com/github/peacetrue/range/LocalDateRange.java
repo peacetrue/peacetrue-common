@@ -1,6 +1,6 @@
 package com.github.peacetrue.range;
 
-import com.github.peacetrue.util.ObjectUtils;
+import com.github.peacetrue.lang.ObjectUtils;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -15,9 +15,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class LocalDateRange extends ComparableRange<LocalDate> implements Serializable {
 
-    private static final long serialVersionUID = 0L;
-
     public static final LocalDateRange DEFAULT = new LocalDateRange();
+    private static final long serialVersionUID = 0L;
 
     public LocalDateRange(LocalDate bound) {
         super(bound);
@@ -41,12 +40,12 @@ public class LocalDateRange extends ComparableRange<LocalDate> implements Serial
      * @return 本地日期时间范围
      */
     public LocalDateTimeRange toLocalDateTimeRange() {
-        LocalDateTimeRange range = new LocalDateTimeRange();
-        range.setLowerInclusive(getLowerInclusive());
-        range.setUpperInclusive(getUpperInclusive());
-        ObjectUtils.acceptSafely(getLowerBound(), bound -> range.setLowerBound(bound.atTime(LocalTime.MIN)));
-        ObjectUtils.acceptSafely(getUpperBound(), bound -> range.setUpperBound(bound.atTime(LocalTime.MAX)));
-        return range;
+        LocalDateTimeRange localDateTimeRange = new LocalDateTimeRange();
+        localDateTimeRange.setLowerInclusive(getLowerInclusive());
+        localDateTimeRange.setUpperInclusive(getUpperInclusive());
+        ObjectUtils.acceptSafely(getLowerBound(), bound -> localDateTimeRange.setLowerBound(bound.atTime(LocalTime.MIN)));
+        ObjectUtils.acceptSafely(getUpperBound(), bound -> localDateTimeRange.setUpperBound(bound.atTime(LocalTime.MAX)));
+        return localDateTimeRange;
     }
 
 

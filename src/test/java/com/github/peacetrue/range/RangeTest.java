@@ -28,29 +28,29 @@ class RangeTest {
 
     @Test
     void isEmpty() {
-        Assertions.assertTrue(new Range<>().isEmpty());
-        Assertions.assertFalse(new Range<>(1, null).isEmpty());
-        Assertions.assertFalse(new Range<>(null, 1).isEmpty());
+        Assertions.assertTrue(Range.isEmpty(new Range<>()));
+        Assertions.assertFalse(Range.isEmpty(new Range<>(1, null)));
+        Assertions.assertFalse(Range.isEmpty(new Range<>(null, 1)));
     }
 
     @Test
     void isFull() {
-        Assertions.assertFalse(new Range<>().isFull());
-        Assertions.assertFalse(new Range<>(1, null).isFull());
-        Assertions.assertFalse(new Range<>(null, 1).isFull());
-        Assertions.assertTrue(new Range<>(1, 2).isFull());
+        Assertions.assertFalse(Range.isFull(new Range<>()));
+        Assertions.assertFalse(Range.isFull(new Range<>(1, null)));
+        Assertions.assertFalse(Range.isFull(new Range<>(null, 1)));
+        Assertions.assertTrue(Range.isFull(new Range<>(1, 2)));
     }
 
     @Test
     void isLowerInclusive() {
-        Assertions.assertTrue(new Range<>().isLowerInclusive());
-        Assertions.assertFalse(new Range<>(null, null, false, null).isLowerInclusive());
+        Assertions.assertTrue(Range.isLowerInclusive(new Range<>()));
+        Assertions.assertFalse(Range.isLowerInclusive(new Range<>(null, null, false, null)));
     }
 
     @Test
     void isUpperInclusive() {
-        Assertions.assertTrue(new Range<>().isUpperInclusive());
-        Assertions.assertFalse(new Range<>(null, null, null, false).isUpperInclusive());
+        Assertions.assertTrue(Range.isUpperInclusive(new Range<>()));
+        Assertions.assertFalse(Range.isUpperInclusive(new Range<>(null, null, null, false)));
     }
 
     @Test
@@ -58,7 +58,6 @@ class RangeTest {
         Range<Long> range = new Range<>(-1L, 1L);
 
         Assertions.assertEquals(range, range);
-        Assertions.assertNotEquals(range, null);
         Assertions.assertNotEquals(range, new Object());
         Assertions.assertNotEquals(range, new Range<>());
         Assertions.assertNotEquals(new Range<>(range.getLowerBound(), 2L), range);

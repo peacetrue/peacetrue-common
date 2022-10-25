@@ -13,9 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class DateRange extends ComparableRange<Date> implements Serializable {
 
-    private static final long serialVersionUID = 0L;
-
     public static final DateRange DEFAULT = new DateRange();
+    private static final long serialVersionUID = 0L;
 
     public DateRange(Date bound) {
         super(bound);

@@ -7,6 +7,8 @@ version "${peaceCommonVersion}${tailSnapshot}"
 description "公共组件，包含常用的辅助类，无明确主题范围"
 
 dependencies {
+    implementation "org.slf4j:slf4j-api"
+    testImplementation "org.apache.commons:commons-io"
     testImplementation "com.fasterxml.jackson.core:jackson-databind"
     testImplementation "com.fasterxml.jackson.dataformat:jackson-dataformat-properties"
 }

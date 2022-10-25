@@ -34,5 +34,4 @@ class LocalDateTimeRangeTest {
         Assertions.assertNull(truncatedTo.getUpperBound());
     }
 
-
 }

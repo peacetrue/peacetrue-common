@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author peace
  */
-public abstract class CollectionUtils {
+public class CollectionUtils {
 
     /**
      * 安全地获取集合的首位元素。

@@ -2,8 +2,8 @@ package com.github.peacetrue.net;
 
 import com.github.peacetrue.beanmap.BeanMapUtils;
 import com.github.peacetrue.beanmap.FlatPropertyVisitor;
+import com.github.peacetrue.lang.ObjectUtils;
 import com.github.peacetrue.util.ArrayUtils;
-import com.github.peacetrue.util.ObjectUtils;
 import com.github.peacetrue.util.stream.StreamUtils;
 
 import javax.annotation.Nullable;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  * @author peace
  * @see java.net.URL
  **/
-public abstract class URLQueryUtils {
+public class URLQueryUtils {
 
     private URLQueryUtils() {
     }

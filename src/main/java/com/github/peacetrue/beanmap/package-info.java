@@ -5,7 +5,4 @@
  *
  * @author peace
  **/
-@NonNullApi
 package com.github.peacetrue.beanmap;
-
-import org.springframework.lang.NonNullApi;

@@ -1,6 +1,6 @@
 package com.github.peacetrue.util.stream;
 
-import com.github.peacetrue.util.ObjectUtils;
+import com.github.peacetrue.lang.ObjectUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -27,7 +27,7 @@ import java.util.stream.StreamSupport;
  *
  * @author peace
  **/
-public abstract class StreamUtils {
+public class StreamUtils {
 
     private StreamUtils() {
     }
