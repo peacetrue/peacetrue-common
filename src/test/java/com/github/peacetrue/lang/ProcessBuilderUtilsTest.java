@@ -23,7 +23,7 @@ class ProcessBuilderUtilsTest {
         log.info("log: start");
         Process process = new ProcessBuilder()
                 .directory(new File(SourcePathUtils.getTestResourceAbsolutePath("/lang")))
-                .command("echo-continue.sh")
+                .command("./echo-continue.sh")
                 .inheritIO()
                 .start();
         Assertions.assertEquals(0, process.waitFor());
