@@ -1,4 +1,6 @@
-= BeanMap
+= 参考指南
+
+== BeanMap
 
 `BeanMap` 是 `LinkedHashMap<String, Object>` 的子类，
 表示一个泛化的 Java Bean 对象。
@@ -7,7 +9,7 @@
 实际上表示它可以接收 `Map<String, Object>`，
 `BeanMap` 的好处在于可以避免泛型转换。
 
-== 格式
+=== 格式
 
 `BeanMap` 有 2 种格式：层级和扁平。
 
@@ -37,7 +39,7 @@ include::example$src/test/resources/210-flatten.json[]
 相信读者已经区分出，这 2 种格式的区别了。
 
 
-== 属性遍历
+=== 属性遍历
 
 假设，你有一个上述层级格式的数据，可以通过如下方式遍历所有属性：
 
@@ -70,7 +72,7 @@ path: employee.tags[0], value: good
 path: employee.tags[1], value: better
 ----
 
-=== Bean 对象和查询字符串互转
+==== Bean 对象和查询字符串互转
 
 * BeanMap：对于类型不确定的 Bean，可以使用 Map 来表示
 ** TieredBeanMap：层级式的 BeanMap，即对象中嵌套对象

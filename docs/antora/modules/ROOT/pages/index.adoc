@@ -1,13 +1,57 @@
-= 简介
+= 概述
 :website: https://peacetrue.github.io
+:app-group: com.github.peacetrue
 :app-name: peacetrue-common
-:foresight-repoId: 1b9d03d7-1643-4809-a42f-60d8d4d69575
+:foresight-repo-id: 1b9d03d7-1643-4809-a42f-60d8d4d69575
+:imagesdir: docs/antora/modules/ROOT/assets/images
 
-image:https://img.shields.io/lgtm/grade/java/github/peacetrue/{app-name}["LGTM Grade",link="https://lgtm.com/projects/g/peacetrue/{app-name}"]
-image:https://snyk.io/test/github/peacetrue/{app-name}/badge.svg["Snyk",link="https://app.snyk.io/org/peacetrue"]
 image:https://img.shields.io/github/workflow/status/peacetrue/{app-name}/build/master["GitHub Workflow Status",link="https://github.com/peacetrue/{app-name}/actions"]
-image:https://api-public.service.runforesight.com/api/v1/badge/success?repoId={foresight-repoId}["Foresight",link="https://foresight.thundra.io/repositories/github/peacetrue/{app-name}/test-runs"]
+image:https://snyk.io/test/github/peacetrue/{app-name}/badge.svg["Snyk",link="https://app.snyk.io/org/peacetrue"]
+image:https://api-public.service.runforesight.com/api/v1/badge/success?repoId={foresight-repo-id}["Foresight",link="https://foresight.thundra.io/repositories/github/peacetrue/{app-name}/test-runs"]
 image:https://img.shields.io/codecov/c/github/peacetrue/{app-name}/master["Codecov",link="https://app.codecov.io/gh/peacetrue/{app-name}"]
+image:https://img.shields.io/nexus/r/{app-group}/{app-name}?label={app-name}&server=https%3A%2F%2Foss.sonatype.org%2F["{app-name}",link="https://search.maven.org/search?q={app-name}"]
 
-{website}/{app-name}/[{app-name}] 是一个公共组件，包含常用的辅助类，无明确主题范围。
 //@formatter:off
+
+== 简介（What）
+
+{website}/{app-name}/[{app-name}] 用于提供公用工具类，包含以下主题：
+
+. BeanMap 属性遍历
+. Range 范围系列
+. Process 命令
+. 函数式编程
+. 正则表达式
+. ...
+
+== 背景（Why）
+
+虽然市面上已经有了较多的工具类库，
+例如：org.apache.commons 系列、guava 等等，
+但仍不能完全涵盖日常开发所需，
+所以将这些尚未实现的日常使用频率较高的功能统一封装到 {app-name} 中。
+
+== 用法（How）
+
+引用如下 Gradle 依赖：
+
+[source%nowrap,gradle,subs="specialchars,attributes"]
+----
+implementation "{app-group}:{app-name}:\{latest-version}"
+----
+
+//TODO 链接坐标转换器
+如需转换为其他格式的 GAV 坐标，
+可使用 http://bee.peacetrue.cn/function/conversion/gav[坐标转换器^]。
+
+== 参与者（Who）
+
+. peace(xiayouxue@hotmail.com)
+
+== 活动（When）
+
+初始提交于 {docdatetime}，最近提交于 {docdatetime}。
+
+== 许可证（License）
+
+https://github.com/peacetrue/{app-name}/blob/master/LICENSE[Apache License 2.0^]

@@ -5,7 +5,8 @@ asciidoc:
   attributes:
     numbered: '@'
     website: https://peacetrue.github.io
-    app-name: 'peacetrue-common'
+    app-group: com.github.peacetrue
+    app-name: peacetrue-common
 start_page: ROOT:index.adoc
 nav:
   - modules/ROOT/nav.adoc
