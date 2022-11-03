@@ -3,10 +3,7 @@ package com.github.peacetrue.util.stream;
 import com.github.peacetrue.lang.ObjectUtils;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Spliterators;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -18,10 +15,10 @@ import java.util.stream.StreamSupport;
  * 以 {@link Stream} 为基础，提供一个集合编程的统一接口，将所有可流化数据转换为 {@link Stream} 数据流。
  * 可流化数据类型及其转换规则：
  * <ul>
- *     <li>{@link Collection} ： {@link Collection#stream()}</li>
+ *     <li>{@link Iterable}   ： {@link Iterable#iterator()} {@link #iteratorAsStream(Iterator)}</li>
  *     <li>{@link Object[]}   ： {@link Stream#of(Object[])}</li>
- *     <li>{@link Iterator}   ： {@link #iteratorStream(Iterator)}</li>
- *     <li>{@link Iterable}   ： {@link Iterable#iterator()} {@link #iteratorStream(Iterator)}</li>
+ *     <li>{@link Iterator}   ： {@link #iteratorAsStream(Iterator)}</li>
+ *     <li>{@link Enumeration}： {@link #enumerationAsStream(Enumeration)}</li>
  *     <li>{@link Stream}     ： {@link Stream}</li>
  * </ul>
  *
@@ -73,6 +70,18 @@ public class StreamUtils {
     }
 
     /**
+     * 转换一个对象为数据流，如果不是可流化数据，返回 {@code null}。
+     *
+     * @param object 对象
+     * @param <T>    数据类型
+     * @return 数据流
+     */
+    @Nullable
+    public static <T> Stream<T> toStreamNullable(Object object) {
+        return toStream(object, temp -> null);
+    }
+
+    /**
      * 转换一个可流化数据为数据流。
      *
      * @param streamable 可流化数据
@@ -99,10 +108,10 @@ public class StreamUtils {
     @SuppressWarnings("unchecked")
     public static <T> Stream<T> toStream(Object data, Function<Object, Stream<T>> converter) {
         Objects.requireNonNull(data, "data must not be null");
-        if (data instanceof Collection) return (Stream<T>) ((Collection<?>) data).stream();
+        if (data instanceof Iterable) return (Stream<T>) iteratorAsStream(((Iterable<?>) data).iterator());
         if (data instanceof Object[]) return (Stream<T>) Stream.of((Object[]) data);
-        if (data instanceof Iterable) return (Stream<T>) iteratorStream(((Iterable<?>) data).iterator());
-        if (data instanceof Iterator) return (Stream<T>) iteratorStream((Iterator<?>) data);
+        if (data instanceof Enumeration) return (Stream<T>) enumerationAsStream((Enumeration<?>) data);
+        if (data instanceof Iterator) return (Stream<T>) iteratorAsStream((Iterator<?>) data);
         if (data instanceof Stream) return (Stream<T>) data;
         return converter.apply(data);
     }
@@ -114,7 +123,63 @@ public class StreamUtils {
      * @param <T>      数据类型
      * @return 数据流
      */
-    public static <T> Stream<T> iteratorStream(Iterator<T> iterator) {
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, 0), false);
+    public static <T> Stream<T> iteratorAsStream(Iterator<T> iterator) {
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
     }
+
+    /**
+     * 转换列举对象为数据流。
+     *
+     * @param enumeration 列举对象
+     * @param <T>         元素类型
+     * @return 数据流
+     */
+    public static <T> Stream<T> enumerationAsStream(Enumeration<T> enumeration) {
+        return iteratorAsStream(enumerationAsIterator(enumeration));
+    }
+
+    /**
+     * 列举对象转换为迭代器。
+     *
+     * @param enumeration 列举对象
+     * @param <T>         元素对象
+     * @return 迭代器
+     */
+    public static <T> Iterator<T> enumerationAsIterator(Enumeration<T> enumeration) {
+        return new Iterator<T>() {
+            @Override
+            public boolean hasNext() {
+                return enumeration.hasMoreElements();
+            }
+
+            @Override
+            public T next() {
+                return enumeration.nextElement();
+            }
+        };
+    }
+
+    /**
+     * 转换输入数据为数据流。
+     *
+     * @param data          数据
+     * @param streamInvoker 数据流调用者
+     * @param dataInvoker   非数据流调用者
+     * @param <T>           数据类型
+     * @param <E>           流中元素类型
+     * @param <R>           返回值类型
+     * @return 数据流
+     */
+    @SuppressWarnings("unchecked")
+    public static <T, E, R> R invoke(T data,
+                                     Function<Stream<E>, R> streamInvoker,
+                                     Function<T, R> dataInvoker) {
+        return ObjectUtils.invokeSafelyLazily(
+                toStreamNullable(data),
+                () -> dataInvoker.apply(data),
+                stream -> streamInvoker.apply((Stream<E>) stream)
+        );
+    }
+
+
 }
