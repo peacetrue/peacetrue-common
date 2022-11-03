@@ -87,7 +87,7 @@ public class MapUtils {
         return map.entrySet().stream()
                 .filter(entry -> entry.getKey() instanceof String)
                 .map(entry -> String.format("%s: %s", rightPad((String) entry.getKey(), largestKeyLength), entry.getValue()))
-                .collect(Collectors.joining("\n\t", "\n\t", ""));
+                .collect(Collectors.joining("\n\t", "\t", ""));
     }
 
     private static String rightPad(String key, int length) {
