@@ -1,2 +1,31 @@
 = 用户手册
 
+== https://en.wikipedia.org/wiki/JavaBeans[Bean^] 遍历
+
+=== 准备
+
+准备如下 json 用户数据：
+
+.json
+[source%nowrap,json,subs="specialchars,attributes"]
+----
+include::example$bean/user.json[]
+----
+
+=== 转换为 properties
+
+转换符合标准 Bean 结构（包含 getter/setter）的对象 `User`：
+
+[source%nowrap,java,subs="specialchars,attributes"]
+----
+include::example$src/test/java/com/github/peacetrue/bean/BeanCommon.java[tag=buildStringBeanVisitor]
+include::example$src/test/java/com/github/peacetrue/bean/BeanCommon.java[tag=writeProps]
+include::example$src/test/java/com/github/peacetrue/bean/StringBeanVisitorTest.java[tag=visitStandardBean]
+----
+
+.properties
+[source%nowrap,properties,subs="specialchars,attributes"]
+----
+include::example$bean/user.properties[]
+----
+

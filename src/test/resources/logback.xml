@@ -11,6 +11,8 @@
     <root level="info">
         <appender-ref ref="stdout"/>
     </root>
-    <logger name="com.github.peacetrue.bee" level="trace"/>
+    <logger name="com.github.peacetrue.bean" level="debug"/>
+    <logger name="com.fasterxml.jackson" level="trace"/>
+<!--    <logger name="com.github.peacetrue.bean" level="debug"/>-->
 
 </configuration>

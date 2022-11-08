@@ -11,12 +11,13 @@ import java.util.stream.StreamSupport;
 
 /**
  * 数据流工具类。
- * <p>
+ * dddd 数据流工具类
+ * <br><br>
  * 以 {@link Stream} 为基础，提供一个集合编程的统一接口，将所有可流化数据转换为 {@link Stream} 数据流。
- * 可流化数据类型及其转换规则：
+ * 可流化数据类型及其转换规则如下：
  * <ul>
  *     <li>{@link Iterable}   ： {@link Iterable#iterator()} {@link #iteratorAsStream(Iterator)}</li>
- *     <li>{@link Object[]}   ： {@link Stream#of(Object[])}</li>
+ *     <li>{@code Object[]}   ： {@link Stream#of(Object[])}</li>
  *     <li>{@link Iterator}   ： {@link #iteratorAsStream(Iterator)}</li>
  *     <li>{@link Enumeration}： {@link #enumerationAsStream(Enumeration)}</li>
  *     <li>{@link Stream}     ： {@link Stream}</li>
@@ -171,9 +172,7 @@ public class StreamUtils {
      * @return 数据流
      */
     @SuppressWarnings("unchecked")
-    public static <T, E, R> R invoke(T data,
-                                     Function<Stream<E>, R> streamInvoker,
-                                     Function<T, R> dataInvoker) {
+    public static <T, E, R> R invoke(T data, Function<Stream<E>, R> streamInvoker, Function<T, R> dataInvoker) {
         return ObjectUtils.invokeSafelyLazily(
                 toStreamNullable(data),
                 () -> dataInvoker.apply(data),

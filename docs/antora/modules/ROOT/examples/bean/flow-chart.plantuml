@@ -1,0 +1,19 @@
+@startuml
+start
+:输入对象;
+switch (判断对象类型)
+case ( 简单类型 )
+  :返回输入对象;
+case ( 复合类型 )
+  :遍历对象方法;
+  :筛选无参有返回值的方法;
+  :转换方法为 Map\nkey 为方法名\nvalue 为调用方法返回值;
+  :返回 Map;
+case ( 集合类型 )
+  :遍历集合;
+  :处理集合元素;
+  :返回处理后的集合;
+endswitch
+stop
+'note right of 应用内核: 应用内核中可以包含多个应用构件
+@enduml

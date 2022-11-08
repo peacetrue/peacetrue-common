@@ -1,0 +1,39 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class BaseBeanVisitor<T>
+class BeanPropertyDescriptor
+interface BeanReadProperty << interface >>
+class BeanReadPropertyImpl
+interface BeanTraverser<T> << interface >>
+class BeanUtils
+interface BeanVisitor<T> << interface >>
+interface BeanWriteProperty << interface >>
+class CloneBeanVisitor
+class CoreBeanVisitor<T>
+class GenericBeanTraverser
+class GenericBeanVisitor
+class MapBeanVisitor
+class SpecificBeanVisitor<T>
+class StandardReadBeanTraverser
+class StandardWriteBeanTraverser
+class StringBeanVisitor
+
+BaseBeanVisitor             -[#000082,plain]-^  CoreBeanVisitor
+BeanPropertyDescriptor      -[#008200,dashed]-^  BeanWriteProperty
+BeanReadPropertyImpl        -[#008200,dashed]-^  BeanReadProperty
+BeanTraverser               -[#595959,dashed]->  BeanReadProperty
+BeanWriteProperty           -[#008200,plain]-^  BeanReadProperty
+CloneBeanVisitor            -[#000082,plain]-^  CoreBeanVisitor
+CoreBeanVisitor             -[#008200,dashed]-^  BeanVisitor
+GenericBeanTraverser        -[#008200,dashed]-^  BeanTraverser
+GenericBeanVisitor          -[#000082,plain]-^  BaseBeanVisitor
+MapBeanVisitor              -[#000082,plain]-^  SpecificBeanVisitor
+SpecificBeanVisitor         -[#000082,plain]-^  BaseBeanVisitor
+StandardReadBeanTraverser   -[#008200,dashed]-^  BeanTraverser
+StandardWriteBeanTraverser  -[#008200,dashed]-^  BeanTraverser
+StringBeanVisitor           -[#000082,plain]-^  SpecificBeanVisitor
+@enduml

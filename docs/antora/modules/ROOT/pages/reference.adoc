@@ -1,107 +1,99 @@
 = 参考指南
 
-== BeanMap
+== https://en.wikipedia.org/wiki/JavaBeans[Bean^] 遍历
 
-`BeanMap` 是 `LinkedHashMap<String, Object>` 的子类，
-表示一个泛化的 Java Bean 对象。
+深度遍历 Bean 属性树，可以实现数据转换、深度拷贝等功能。
 
-如果说一个方法接收 `BeanMap` 作为参数，
-实际上表示它可以接收 `Map<String, Object>`，
-`BeanMap` 的好处在于可以避免泛型转换。
+[[bean_structure]]
+=== Bean 结构
 
-=== 格式
+一个 Bean 会包含多个属性，一个属性通常包含：
 
-`BeanMap` 有 2 种格式：层级和扁平。
+. 属性名称
+. 属性类型
+. 属性值读取方法
+. 属性值写入方法
 
-假设，你有如下 `User` 类：
+如果一个属性的读取、写入方法，符合标准命名规范，
+即 get__Xxx__/set__Xxx__/is__Xxx__，
+则称其为标准属性，否则为非标准属性。
+由标准属性组成的 Bean 称其为 *标准 Bean*；
+包含非标准属性的 Bean 称其为 *非标准 Bean*。
 
-[source%nowrap,java]
------
-include::example$src/test/java/com/github/peacetrue/beanmap/BeanMapUtilsTest.java[tag=user]
------
+以下是一个非标准 Bean 的例子：
 
-层级格式示例如下：
-
-.tiered
-[source%nowrap,json]
------
-include::example$src/test/resources/200-tiered.json[]
------
-
-扁平格式示例如下：
-
-.flat
-[source%nowrap,json]
------
-include::example$src/test/resources/210-flatten.json[]
------
-
-相信读者已经区分出，这 2 种格式的区别了。
-
-
-=== 属性遍历
-
-假设，你有一个上述层级格式的数据，可以通过如下方式遍历所有属性：
-
-[source%nowrap,java]
------
-include::example$src/test/java/com/github/peacetrue/beanmap/BeanMapUtilsTest.java[tag=log]
------
-
-输出日志如下：
-
-[source%nowrap,log]
+.PosixFileAttributeView
+[plantuml,target=PosixFileAttributeView,format=png]
 ----
-path: id, value: null
-path: name, value: admin
-path: password, value:
-path: roles[0].id, value: 1
-path: roles[0].name, value: admin
-path: roles[0].tags[0], value: read
-path: roles[0].tags[1], value: write
-path: roles[1], value: null
-path: roles[2].id, value: null
-path: roles[2].name, value: user
-path: roles[2].tags, value: null
-path: roles[3].id, value: 3
-path: roles[3].name, value: null
-path: roles[3].tags, value: null
-path: employee.id, value: 1
-path: employee.name, value: Jone
-path: employee.tags[0], value: good
-path: employee.tags[1], value: better
+include::example$bean/PosixFileAttributeView.plantuml[]
 ----
 
-==== Bean 对象和查询字符串互转
+从更泛化的角度来说，任何无参有返回值的公开成员方法，都可以视作属性的读取方法。
 
-* BeanMap：对于类型不确定的 Bean，可以使用 Map 来表示
-** TieredBeanMap：层级式的 BeanMap，即对象中嵌套对象
-** FlatBeanMap：扁平式的 BeanMap，值都是原始类型或者原始类型集合
+=== Bean 属性树
 
-.Bean 对象 转 查询字符串
-[plantuml,target=BeanToQueryFlow,format=png]
+什么是 Bean 属性树？以用户为例说明：
+
+用户数据结构如下：
+
+.用户
+[source%nowrap,java,subs="specialchars,attributes"]
 ----
-:Bean 对象;
-note right: ObjectMapper.convertValue
-:TieredBeanMap 对象：Map<String,Object>;
-note right: BeanMapUtils.flatten
-:FlatBeanMap 对象：Map<String,Object>;
-note right: URLQueryUtils.fromBeanMap
-:表单参数对象：Map<String,List<Object>>;
-note right: URLQueryUtils.toQuery
-:查询字符串：String;
+include::example$src/test/java/com/github/peacetrue/bean/BeanCommon.java[tag=user]
 ----
 
-.查询字符串 转 Bean 对象
-[plantuml,target=QueryToBeanFlow,format=png]
+.角色
+[source%nowrap,java,subs="specialchars,attributes"]
 ----
-:查询字符串：String;
-note right: URLQueryUtils.parseQuery
-:表单参数对象：Map<String,List<Object>>;
-note right: URLQueryUtils.toBeanMap
-:FlatBeanMap 对象：Map<String,Object>;
-note right: BeanMapUtils.tier
-:TieredBeanMap 对象：Map<String,Object>;
-note right: ObjectMapper.convertValue
-:Bean 对象;
+include::example$src/test/java/com/github/peacetrue/bean/BeanCommon.java[tag=role]
 ----
+
+.员工
+[source%nowrap,java,subs="specialchars,attributes"]
+----
+include::example$src/test/java/com/github/peacetrue/bean/BeanCommon.java[tag=employee]
+----
+
+构造如下用户实例数据：
+
+[source%nowrap,java,subs="specialchars,attributes"]
+----
+include::example$src/test/java/com/github/peacetrue/bean/BeanCommon.java[tag=user0]
+----
+
+其 YAML 格式数据如下：
+
+[source%nowrap,yaml,subs="specialchars,attributes"]
+----
+include::example$bean/user.yaml[]
+----
+
+类比于文件系统目录结构，上面由属性路径表示的实例是不是很像一棵树。
+
+=== 遍历规则
+
+每个属性路径对应属性树上的一个节点。
+
+对象节点类型分为以下 3 种：
+
+. 叶子节点，不需要遍历对象内部信息，通常包括：原始类型及其包装类型、简单值类型，支持自定义该类型
+. 集合节点，需要循环遍历集合内元素信息，通常包括：`Iterable`、`Object[]`
+. 父亲节点，需要通过调用对象的方法遍历其内部信息，通常包括 `Map` 和自定义复合类型（如上面提及的用户）
+
+对象属性路径表示方式：
+
+. 节点路径间串联使用点号，例如：user.name
+. 集合节点路径使用 [_index_]，例如：roles[0]
+. 组合以上两种方式，例如：user.roles[0].name
+
+BeanVisitor 接口定义如下：
+
+[plantuml,target=BeanVisitor,format=png]
+----
+include::example$bean/BeanVisitor.plantuml[]
+----
+
+NOTE: 集合只支持 `Iterable` 和 `Object[]`，不支持 `Enumeration`，尚未遇到此场景，不过度设计。
+
+WARNING: 留意规避循环引用问题，否则导致堆栈溢出。
+

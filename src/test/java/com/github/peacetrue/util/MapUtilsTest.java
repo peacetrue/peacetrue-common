@@ -70,7 +70,7 @@ class MapUtilsTest {
 
     @Test
     void prettify() {
-        Assertions.assertEquals("\n\t", MapUtils.prettify(Collections.emptyMap()));
+        Assertions.assertEquals("\t", MapUtils.prettify(Collections.emptyMap()));
 
         String prettify = MapUtils.prettify(MapUtils.from(
                 new String[]{"templateLocation", "optionsLocation", "variablesLocation", "resultPath"},
@@ -78,8 +78,7 @@ class MapUtilsTest {
         ));
         log.info("prettify args: {}", prettify);
         Assertions.assertEquals(
-                "\n" +
-                        "\ttemplateLocation : file:template\n" +
+                "\ttemplateLocation : file:template\n" +
                         "\toptionsLocation  : file:antora-options.properties\n" +
                         "\tvariablesLocation: file:antora-variables.properties\n" +
                         "\tresultPath       : result",

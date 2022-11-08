@@ -1,0 +1,30 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+interface BeanVisitor<T> {
+  + visitRoot(Object): T
+  + visitAny(String?, Object?): T?
+  + visitLeaf(String?, Object?): T?
+  + visitCollection(String?, Iterable<?>): T
+  + visitCollection(String?, Object[]): T
+  + visitParent(String?, Object): T
+  + visitParent(String?, Map<?, ?>): T
+}
+
+note top
+Bean 访问者，遍历任意原始对象得到特定类型目标对象。
+visit 系列方法具有一致的参数：第一个参数为属性路径，第二个参数为属性值
+end note
+
+note left of BeanVisitor::visitRoot
+客户端访问的入口方法，此方法没有属性路径参数
+end note
+
+note right of BeanVisitor::visitAny
+访问任意对象，此方法判断对象类型，然后调用与对象类型匹配的 visit 方法
+end note
+
+@enduml

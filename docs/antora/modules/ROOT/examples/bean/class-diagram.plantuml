@@ -1,0 +1,30 @@
+@startuml
+
+interface ObjectVisitor {
+    visitLeaf(String, Object)
+    visitParent(String, Object)
+    visitCollection(String, Collection)
+}
+note left of ObjectVisitor: 对象访问者
+
+class DefaultObjectVisitor {
+    ObjectVisitor objectVisitor
+
+    visitAny(String, Object)
+    visitLeaf(String, Object)
+    visitParent(String, Object)
+    visitCollection(String, Collection)
+    isLeaf(Object)
+    isCollection(Object)
+}
+
+DefaultObjectVisitor--|>ObjectVisitor
+
+
+class ObjectUtils {
+    {static} void walk(Object, ObjectVisitor)
+}
+
+ObjectUtils-->ObjectVisitor
+'note right of 应用内核: 应用内核中可以包含多个应用构件
+@enduml

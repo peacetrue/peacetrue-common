@@ -8,6 +8,8 @@
 
 == 1.1.0
 
+新增：
+
 . `ProcessBuilderUtils`
 . `BeanMapUtils`
 . `Range`

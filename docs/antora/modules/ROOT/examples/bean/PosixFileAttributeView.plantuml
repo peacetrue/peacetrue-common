@@ -1,0 +1,30 @@
+@startuml
+
+!theme plain
+top to bottom direction
+'left to right direction
+skinparam linetype ortho
+
+enum PosixFilePermission << enumeration >> {
+  + valueOf(String): PosixFilePermission
+  + values(): PosixFilePermission[]
+}
+
+interface PosixFileAttributeView {
+  + readAttributes(): PosixFileAttributes
+  + setGroup(GroupPrincipal): void
+  + setPermissions(Set<PosixFilePermission>): void
+  + name(): String
+}
+
+interface PosixFileAttributes {
+  + group(): GroupPrincipal
+  + owner(): UserPrincipal
+  + permissions(): Set<PosixFilePermission>
+}
+
+PosixFileAttributeView::readAttributes-->PosixFileAttributes
+PosixFileAttributeView::setPermissions-->PosixFilePermission
+PosixFileAttributes::permissions-->PosixFilePermission
+
+@enduml

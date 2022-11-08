@@ -1,2 +1,76 @@
 = 快速入门
 
+== 遍历 xref::reference.adoc#bean_structure[非标准 Bean]
+
+以下示例演示如何遍历非标准 Bean `PosixFileAttributeView`。
+
+=== Jackson
+
+使用 Jackson 序列化：
+
+[source%nowrap,java,subs="specialchars,attributes"]
+----
+include::example$src/test/java/com/github/peacetrue/bean/PosixFileAttributeViewTest.java[tag=jackson]
+----
+
+输出 properties 格式数据：
+
+.jackson.properties
+[source%nowrap,properties,subs="specialchars,attributes"]
+----
+include::example$bean/PosixFileAttributeView/jackson.properties[]
+----
+
+=== StringBeanVisitor
+
+使用默认的 `StringBeanVisitor` 序列化：
+
+[source%nowrap,java,subs="specialchars,attributes"]
+----
+include::example$src/test/java/com/github/peacetrue/bean/PosixFileAttributeViewTest.java[tag=beanVisitorDefault]
+----
+
+输出 properties 格式数据：
+
+.visitor.properties
+[source%nowrap,properties,subs="specialchars,attributes"]
+----
+include::example$bean/PosixFileAttributeView/visitor.properties[]
+----
+
+和 Jackson 输出的内容相同，因为默认情况下，都是支持标准 Bean。
+
+=== 自定义 Bean 遍历器
+
+设置 Bean 遍历器为 `CustomReadonlyBeanTraverser`：
+
+[source%nowrap,java,subs="specialchars,attributes"]
+----
+include::example$src/test/java/com/github/peacetrue/bean/PosixFileAttributeViewTest.java[tag=beanVisitorCustomTraverser]
+----
+
+输出 properties 格式数据：
+
+.visitor-custom-traverser.properties
+[source%nowrap,properties,subs="specialchars,attributes"]
+----
+include::example$bean/PosixFileAttributeView/visitor-custom-traverser.properties[]
+----
+
+=== 自定义所有
+
+上面的结果看着有些不清晰的地方，通过完全自定义解决这些问题：
+
+[source%nowrap,java,subs="specialchars,attributes"]
+----
+include::example$src/test/java/com/github/peacetrue/bean/PosixFileAttributeViewTest.java[tag=beanVisitorCustomTraverser]
+----
+
+输出 properties 格式数据：
+
+.visitor-custom-traverser.properties
+[source%nowrap,properties,subs="specialchars,attributes"]
+----
+include::example$bean/PosixFileAttributeView/visitor-custom-all.properties[]
+----
+

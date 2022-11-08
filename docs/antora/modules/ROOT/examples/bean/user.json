@@ -1,0 +1,23 @@
+{
+  "id" : null,
+  "name" : "admin",
+  "password" : "",
+  "roles" : [ {
+    "id" : 1,
+    "name" : "admin",
+    "tags" : [ "read", "write" ]
+  }, null, {
+    "id" : null,
+    "name" : "user",
+    "tags" : null
+  }, {
+    "id" : 3,
+    "name" : null,
+    "tags" : null
+  } ],
+  "employee" : {
+    "id" : 1,
+    "name" : "Jone",
+    "tags" : [ "good", "better" ]
+  }
+}

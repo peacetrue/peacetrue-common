@@ -17,8 +17,8 @@ image:https://img.shields.io/nexus/r/{app-group}/{app-name}?label={app-name}&ser
 
 {website}/{app-name}/[{app-name}] 用于提供公用工具类，包含以下主题：
 
-. BeanMap 属性遍历
-. Range 范围系列
+. Bean 属性树深度遍历
+. Range 范围
 . Process 命令
 . 函数式编程
 . 正则表达式
@@ -50,7 +50,7 @@ implementation "{app-group}:{app-name}:\{latest-version}"
 
 == 活动（When）
 
-初始提交于 {docdatetime}，最近提交于 {docdatetime}。
+初始提交于 2022-05-02，最近提交于 2022-11-01。
 
 == 许可证（License）
 
