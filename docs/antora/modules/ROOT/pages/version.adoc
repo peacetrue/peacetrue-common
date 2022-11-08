@@ -13,3 +13,4 @@
 . `ProcessBuilderUtils`
 . `BeanMapUtils`
 . `Range`
+. `BeanVisitor`
