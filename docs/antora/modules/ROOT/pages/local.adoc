@@ -17,7 +17,7 @@
 
 [source%nowrap,java]
 -----
-include::example$src/test/java/com/github/peacetrue/beanmap/BeanMapUtilsTest.java[tag=user]
+// include::example$src/test/java/com/github/peacetrue/beanmap/BeanMapUtilsTest.java[tag=user]
 -----
 
 层级格式示例如下：

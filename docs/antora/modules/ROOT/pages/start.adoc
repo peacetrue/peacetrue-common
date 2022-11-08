@@ -1,6 +1,6 @@
 = 快速入门
 
-== 遍历 xref::reference.adoc#bean_structure[非标准 Bean]
+== 查看 xref::reference.adoc#bean_structure[非标准 Bean]
 
 以下示例演示如何遍历非标准 Bean `PosixFileAttributeView`。
 
@@ -63,7 +63,7 @@ include::example$bean/PosixFileAttributeView/visitor-custom-traverser.properties
 
 [source%nowrap,java,subs="specialchars,attributes"]
 ----
-include::example$src/test/java/com/github/peacetrue/bean/PosixFileAttributeViewTest.java[tag=beanVisitorCustomTraverser]
+include::example$src/test/java/com/github/peacetrue/bean/PosixFileAttributeViewTest.java[tag=beanVisitorCustomAll]
 ----
 
 输出 properties 格式数据：
