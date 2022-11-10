@@ -28,7 +28,7 @@ public class ObjectUtils {
      * @param <T>          值类型
      * @return 如果原值为 {@code null} 返回默认值，否则返回原值
      */
-    public static <T> T defaultIfNull(T object, T defaultValue) {
+    public static <T> T defaultIfNull(@Nullable T object, T defaultValue) {
         return object == null ? defaultValue : object;
     }
 
@@ -45,7 +45,7 @@ public class ObjectUtils {
      * @param <T>          值类型
      * @return 如果原值为 {@code null} 返回默认值，否则返回原值
      */
-    public static <T> T defaultIfNullLazily(T object, Supplier<T> defaultValue) {
+    public static <T> T defaultIfNullLazily(@Nullable T object, Supplier<T> defaultValue) {
         return object == null ? defaultValue.get() : object;
     }
 
@@ -87,8 +87,21 @@ public class ObjectUtils {
      * @param invoker 输入值为非 {@code null} 时的调用者
      * @param <T>     输入值类型
      */
-    public static <T> void acceptSafely(T value, Consumer<T> invoker) {
+    public static <T> void acceptSafely(@Nullable T value, Consumer<T> invoker) {
         if (value != null) invoker.accept(value);
+    }
+
+    /**
+     * 无返回值函数转有返回值函数。
+     *
+     * @param value   输入值
+     * @param invoker 输入值为非 {@code null} 时的调用者
+     * @param <T>     输入值类型
+     * @return 输入值
+     */
+    public static <T> T acceptSafelyReturnly(@Nullable T value, Consumer<T> invoker) {
+        acceptSafely(value, invoker);
+        return value;
     }
 
     /**
@@ -101,7 +114,7 @@ public class ObjectUtils {
      * @return {@code null} 或者调用返回值
      */
     @Nullable
-    public static <T, S> S invokeSafely(T value, Function<T, S> invoker) {
+    public static <T, S> S invokeSafely(@Nullable T value, Function<T, S> invoker) {
         return invokeSafely(value, null, invoker);
     }
 
@@ -115,7 +128,7 @@ public class ObjectUtils {
      * @param <S>      返回值类型
      * @return 默认值或者调用返回值
      */
-    public static <T, S> S invokeSafely(T value, S defaults, Function<T, S> invoker) {
+    public static <T, S> S invokeSafely(@Nullable T value, S defaults, Function<T, S> invoker) {
         return value == null ? defaults : invoker.apply(value);
     }
 
@@ -129,7 +142,7 @@ public class ObjectUtils {
      * @param <S>      返回值类型
      * @return 默认值或者调用返回值
      */
-    public static <T, S> S invokeSafelyLazily(T value, Supplier<S> defaults, Function<T, S> invoker) {
+    public static <T, S> S invokeSafelyLazily(@Nullable T value, Supplier<S> defaults, Function<T, S> invoker) {
         return value == null ? defaults.get() : invoker.apply(value);
     }
 

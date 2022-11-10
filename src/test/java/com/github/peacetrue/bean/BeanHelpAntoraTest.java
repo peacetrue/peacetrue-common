@@ -1,6 +1,7 @@
 package com.github.peacetrue.bean;
 
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import com.github.peacetrue.BeanCommon;
 import com.github.peacetrue.HelpAntora;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,6 @@
 package com.github.peacetrue.bean;
 
+import com.github.peacetrue.BeanCommon;
 import com.github.peacetrue.HelpAntora;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,7 @@ import java.nio.file.attribute.PosixFileAttributeView;
 import java.util.Collections;
 import java.util.Date;
 
-import static com.github.peacetrue.bean.BeanCommon.*;
+import static com.github.peacetrue.BeanCommon.*;
 
 /**
  * @author peace

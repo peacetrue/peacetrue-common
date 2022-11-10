@@ -1,6 +1,7 @@
 package com.github.peacetrue.lang;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author peace
  **/
+@Slf4j
 class ObjectUtilsTest {
 
 
@@ -51,6 +53,11 @@ class ObjectUtilsTest {
         String changedDefaultValue = defaultValue + "1";
         ObjectUtils.setDefaultLazily(user::getName, user::setName, () -> changedDefaultValue);
         Assertions.assertNotEquals(changedDefaultValue, user.getName());
+    }
+
+    @Test
+    void acceptSafelyReturnly() {
+        Assertions.assertEquals(1, ObjectUtils.acceptSafelyReturnly(1, value -> log.info("i: {}", value)));
     }
 
 

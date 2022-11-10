@@ -3,7 +3,7 @@ package com.github.peacetrue.beanmap;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsMapper;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsSchema;
-import com.github.peacetrue.bean.BeanCommon;
+import com.github.peacetrue.BeanCommon;
 import com.github.peacetrue.test.SourcePathUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;

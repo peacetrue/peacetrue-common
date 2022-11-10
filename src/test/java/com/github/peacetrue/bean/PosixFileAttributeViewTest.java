@@ -1,6 +1,7 @@
 package com.github.peacetrue.bean;
 
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsMapper;
+import com.github.peacetrue.BeanCommon;
 import com.github.peacetrue.HelpAntora;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
