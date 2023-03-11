@@ -12,6 +12,10 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 class ObjectUtilsTest {
 
+    @Data
+    private static class User {
+        private String name;
+    }
 
     @Test
     void defaultIfNull() {
@@ -25,6 +29,12 @@ class ObjectUtilsTest {
         String originalValue = RandomStringUtils.random(10), defaultValue = RandomStringUtils.random(10);
         Assertions.assertEquals(defaultValue, ObjectUtils.defaultIfNullLazily(null, () -> defaultValue));
         Assertions.assertEquals(originalValue, ObjectUtils.defaultIfNullLazily(originalValue, () -> defaultValue));
+    }
+
+    @Test
+    void acceptSafelyReturnly() {
+        Object value1 = new Object();
+        Assertions.assertEquals(value1, ObjectUtils.acceptSafelyReturnly(value1, value -> log.info("i: {}", value)));
     }
 
     @Test
@@ -55,14 +65,6 @@ class ObjectUtilsTest {
         Assertions.assertNotEquals(changedDefaultValue, user.getName());
     }
 
-    @Test
-    void acceptSafelyReturnly() {
-        Assertions.assertEquals(1, ObjectUtils.acceptSafelyReturnly(1, value -> log.info("i: {}", value)));
-    }
 
 
-    @Data
-    private static class User {
-        private String name;
-    }
 }

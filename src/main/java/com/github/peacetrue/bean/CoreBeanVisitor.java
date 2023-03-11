@@ -1,6 +1,5 @@
 package com.github.peacetrue.bean;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
@@ -70,7 +69,8 @@ public abstract class CoreBeanVisitor<T> implements BeanVisitor<T> {
      * @return true 如果是子类，否则 false
      */
     public static BiPredicate<String, Class<?>> in(Class<?>... classes) {
-        return (path, clazz) -> Arrays.stream(classes).anyMatch(item -> clazz == item);
+        // path 为 null，此时 Bean 为根节点，根节点默认为非叶子节点，如果根节点作为叶子节点，失去遍历的意义了
+        return (path, clazz) -> path != null && Arrays.stream(classes).anyMatch(item -> item.isAssignableFrom(clazz));
     }
 
     /**
