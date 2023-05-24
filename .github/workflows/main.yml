@@ -32,7 +32,7 @@ jobs:
           domain: ${{github.repository_owner}}
 #          token: ${{ secrets.TESTSPACE_TOKEN }} # optional, only required for private repos
       - name: Publish Results to Testspace
-        run: testspace "build/test-results/test/*.xml" "build/jacoco/test/jacocoTestReport.xml"
+        run: testspace "build/test-results/test/*.xml" "build/reports/jacoco/test/jacocoTestReport.xml"
 
       #https://github.com/marketplace/actions/codecov
       - name: Codecov

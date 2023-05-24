@@ -2,12 +2,10 @@
 :website: https://peacetrue.github.io
 :app-group: com.github.peacetrue
 :app-name: peacetrue-common
-:foresight-repo-id: 1b9d03d7-1643-4809-a42f-60d8d4d69575
 :imagesdir: docs/antora/modules/ROOT/assets/images
 
 image:https://img.shields.io/github/actions/workflow/status/peacetrue/{app-name}/main.yml?branch=master["GitHub Workflow Status",link="https://github.com/peacetrue/{app-name}/actions"]
 image:https://snyk.io/test/github/peacetrue/{app-name}/badge.svg["Snyk",link="https://app.snyk.io/org/peacetrue"]
-image:https://api-public.service.runforesight.com/api/v1/badge/success?repoId={foresight-repo-id}["Foresight",link="https://foresight.thundra.io/repositories/github/peacetrue/{app-name}/test-runs"]
 image:https://img.shields.io/codecov/c/github/peacetrue/{app-name}/master["Codecov",link="https://app.codecov.io/gh/peacetrue/{app-name}"]
 image:https://img.shields.io/nexus/r/{app-group}/{app-name}?label={app-name}&server=https%3A%2F%2Foss.sonatype.org%2F["{app-name}",link="https://search.maven.org/search?q={app-name}"]
 
@@ -50,7 +48,7 @@ implementation "{app-group}:{app-name}:\{latest-version}"
 
 == 活动（When）
 
-初始提交于 2022-05-02，最近提交于 2022-11-01。
+初始提交于 2022-05-02，最近提交于 {docdate}。
 
 == 许可证（License）
 
