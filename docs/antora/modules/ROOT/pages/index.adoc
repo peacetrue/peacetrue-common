@@ -49,7 +49,7 @@ implementation "{app-group}:{app-name}:\{latest-version}"
 
 == 活动（When）
 
-初始提交于 2022-05-02，最近提交于 2022-11-01。
+初始提交于 2022-05-02，最近提交于 {docdate}。
 
 == 许可证（License）
 
