@@ -14,11 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Collect Workflow Telemetry
-        uses: runforesight/foresight-workflow-kit-action@v1
-        with:
-          api_key: 6d66f622-6961-4fff-a0a4-3c46a0ba8aee
-
       - uses: actions/checkout@v3
 
       - name: Set up JDK 8
@@ -32,23 +27,12 @@ jobs:
         with:
           arguments: build
 
-      #https://foresight.thundra.io/start/integrate-github-test-runs
-      #    - name: Foresight Test Report Uploader
-      #      if: success()
-      #      uses: actions/upload-artifact@v2
-      #      with:
-      #        name: test-result-junit
-      #        path: build/test-results/test
-
-      - name: Analyze Test and/or Coverage Results
-        uses: runforesight/foresight-test-kit-action@v1
+      - uses: testspace-com/setup-testspace@v1
         with:
-          api_key: 6d66f622-6961-4fff-a0a4-3c46a0ba8aee
-          test_format: JUNIT
-          test_framework: JUNIT
-          test_path: build/test-results/test
-          coverage_format: JACOCO/XML
-          coverage_path: build/reports/jacoco/test
+          domain: ${{github.repository_owner}}
+          token: ${{ secrets.TESTSPACE_TOKEN }} # optional, only required for private repos
+      - name: Publish Results to Testspace
+        run: testspace "build/test-results/test/*.xml"
 
       #https://github.com/marketplace/actions/codecov
       - name: Codecov
