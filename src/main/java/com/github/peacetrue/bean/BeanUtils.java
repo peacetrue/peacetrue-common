@@ -137,6 +137,7 @@ public class BeanUtils {
      */
     public static Object invoke(Object object, Method method) {
         try {
+            method.setAccessible(true);
             return method.invoke(object);
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new IllegalStateException(e);

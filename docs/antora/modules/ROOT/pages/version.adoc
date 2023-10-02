@@ -20,3 +20,4 @@
 . 新增 `ShellUtils`
 . 完善 `DateTimeFormatterUtils`
 . 解决编译时 javadoc error
+. 支持 JDK 17

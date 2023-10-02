@@ -15,6 +15,15 @@ dependencies {
     testImplementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml"
 }
 
+test {
+//    UnixFileAttributeViews$Posix: accessible: module java.base does not "opens sun.nio.fs" to unnamed module @3d646c37
+//    https://stackoverflow.com/questions/65225327/how-do-i-properly-add-add-opens-to-jvmargs-in-javaexec-task
+    jvmArgs("--add-opens", "java.base/sun.nio.fs=ALL-UNNAMED")
+//    java.lang.IllegalAccessException: class com.github.peacetrue.bean.BeanUtils cannot access a member of class sun.nio.fs.UnixFileAttributeViews$Posix (in module java.base) with modifiers "public"
+//    Java HotSpot(TM) 64-Bit Server VM warning: Ignoring option --illegal-access=warn; support was removed in 17.0
+//    jvmArgs("--illegal-access=warn")
+}
+
 jmh {
 //    includes = ["CloneBeanVisitorBenchmark"]
     benchmarkMode = ["avgt"]
