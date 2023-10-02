@@ -21,3 +21,4 @@
 . 完善 `DateTimeFormatterUtils`
 . 解决编译时 javadoc error
 . 支持 JDK 17
+. GitHub 多版本 JDK 构建
