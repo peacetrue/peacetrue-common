@@ -16,21 +16,26 @@ import java.time.ZoneId;
 @NoArgsConstructor
 public class LongRange extends ComparableRange<Long> implements Serializable {
 
+    /** 默认实例 */
     public static final LongRange DEFAULT = new LongRange();
     private static final long serialVersionUID = 0L;
 
+    /** {@inheritDoc} */
     public LongRange(Long bound) {
         super(bound);
     }
 
+    /** {@inheritDoc} */
     public LongRange(Long lowerBound, Long upperBound) {
         super(lowerBound, upperBound);
     }
 
+    /** {@inheritDoc} */
     public LongRange(Long lowerBound, Long upperBound, Boolean lowerInclusive, Boolean upperInclusive) {
         super(lowerBound, upperBound, lowerInclusive, upperInclusive);
     }
 
+    /** {@inheritDoc} */
     public LongRange(Range<Long> range) {
         super(range);
     }

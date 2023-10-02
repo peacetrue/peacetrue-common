@@ -14,3 +14,9 @@
 . `BeanMapUtils`
 . `Range`
 . `BeanVisitor`
+
+== 1.2.0
+
+. 新增 `ShellUtils`
+. 完善 `DateTimeFormatterUtils`
+. 解决编译时 javadoc error

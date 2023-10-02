@@ -7,7 +7,6 @@ import java.util.Map;
  * 对于类型不确定的 Bean，可以使用 Map 来表示，称之为 BeanMap。
  * <p>
  * 类型转换时，避免泛型。可用作 Spring RestTemplate 获取返回结果的类型。
- * <p>
  *
  * @author peace
  **/

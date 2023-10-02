@@ -10,18 +10,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ComparableRange<T extends Comparable<? super T>> extends Range<T> {
 
+    /** {@inheritDoc} */
     public ComparableRange(T bound) {
         super(bound);
     }
 
+    /** {@inheritDoc} */
     public ComparableRange(T lowerBound, T upperBound) {
         super(lowerBound, upperBound);
     }
 
+    /** {@inheritDoc} */
     public ComparableRange(T lowerBound, T upperBound, Boolean lowerInclusive, Boolean upperInclusive) {
         super(lowerBound, upperBound, lowerInclusive, upperInclusive);
     }
 
+    /** {@inheritDoc} */
     public ComparableRange(Range<T> range) {
         super(range);
     }

@@ -15,21 +15,26 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class LocalDateTimeRange extends ComparableRange<LocalDateTime> implements Serializable {
 
+    /** 默认实例 */
     public static final LocalDateTimeRange DEFAULT = new LocalDateTimeRange();
     private static final long serialVersionUID = 0L;
 
+    /** {@inheritDoc} */
     public LocalDateTimeRange(LocalDateTime bound) {
         super(bound);
     }
 
+    /** {@inheritDoc} */
     public LocalDateTimeRange(LocalDateTime lowerBound, LocalDateTime upperBound) {
         super(lowerBound, upperBound);
     }
 
+    /** {@inheritDoc} */
     public LocalDateTimeRange(LocalDateTime lowerBound, LocalDateTime upperBound, Boolean lowerInclusive, Boolean upperInclusive) {
         super(lowerBound, upperBound, lowerInclusive, upperInclusive);
     }
 
+    /** {@inheritDoc} */
     public LocalDateTimeRange(Range<LocalDateTime> range) {
         super(range);
     }
